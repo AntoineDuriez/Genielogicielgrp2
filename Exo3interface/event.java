@@ -8,7 +8,7 @@ import java.util.List;
  * @author GLA group 2
  */
 public class event extends marker {
-	//duration ? je ne sais aps comment l'implémenter, DateTime ?
+	//duration ? je ne sais aps comment l'implÃ©menter, DateTime ?
 	//constructeur
 	/**
 	 * Event constructor
@@ -18,7 +18,7 @@ public class event extends marker {
 		super(n, d, lon, lat, p, m);
 	}
 	public interface EventDo {
-		public interface CategoryDo {
+		
 			/* @return this list of events*/
 			List<event> getevents();
 			
