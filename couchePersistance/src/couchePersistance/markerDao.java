@@ -1,11 +1,11 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 
 import java.util.List;
 
-public interface markerDao {
+public interface MarkerDao {
 	//creer event, modifier event
 	/* @return this list of markers*/
-	List<marker> getmarkers();
+	List<Marker> getmarkers();
 	/*To create a new marker*/
 	public void addMarker();
 	/*To modify a marker*/

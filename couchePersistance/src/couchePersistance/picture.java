@@ -1,17 +1,17 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 /**
  * Picture class to manage pictures which is tie to markers and events
  * @author GLA group 2
  */
-public class picture {
+public class Picture {
 	//champs
-	private String location;	//URL de récupération de l'image
+	private String location;	//URL de rï¿½cupï¿½ration de l'image
 	//constructeur
 	/**
 	 * Picture constructor
 	 * @param l	A string which able to locate where the picture is
 	 */
-	public picture(String l) {
+	public Picture(String l) {
 		this.location = l;
 	}
 	//guetteur
