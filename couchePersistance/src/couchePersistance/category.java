@@ -1,15 +1,15 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 
 import java.util.List;
 /**
  * Category class to manage and create markers and events categories on the application
  * @author GLA group 2
  */
-public class category {
+public class Category {
 	//champs
 	private String name;	//nom de la categorie
-	private String description;	//description rapide de la catégorie
-	private List<marker> markerList;	// liste des markers qui sont contenus dans la catégorie, concerne aussi les classes enfants (event)
+	private String description;	//description rapide de la catï¿½gorie
+	private List<Marker> markerList;	// liste des markers qui sont contenus dans la catï¿½gorie, concerne aussi les classes enfants (event)
 	
 	//constructor
 	/**
@@ -18,15 +18,15 @@ public class category {
 	 * @param d	A string which quickly describe the category
 	 * @param m	A list of markers which represent all markers (and events) which are in the category
 	 */
-	public category(String n, String d, List<marker> m) {
+	public Category(String n, String d, List<Marker> m) {
 		this.name = n;
 		this.description = d;
 		this.markerList = m;
 	}
 	
-	//guetteur
+	//Getter
 	/**
-	 * name guetteur
+	 * name getter
 	 * @return	return a string which the name of the category
 	 * @author GLA group 2
 	 */
@@ -34,7 +34,7 @@ public class category {
 		return this.name;
 	}
 	/**
-	 * description guetteur
+	 * description getter
 	 * @return	return a string which is a quick description of the category
 	 * @author GLA group 2
 	 */
@@ -42,11 +42,11 @@ public class category {
 		return this.description;
 	}
 	/**
-	 * markerList guetteur
+	 * markerList getter
 	 * @return	return the list of the marker in the category
 	 * @author GLA group 2
 	 */
-	public List<marker> getMarkerList(){
+	public List<Marker> getMarkerList(){
 		return this.markerList;
 	}
 

@@ -1,15 +1,14 @@
-package couchePersistance;
-
+package jersey_commun.couchePersistance;
 import java.util.List;
 /**
  * Class map to manage application map use
  * @author GLA group 2
  */
-public class map {
+public class Map {
 	//champs
 	private String name;	//nom de la map
-	private List<marker> markerList;	//tous les lieux enregistrés sur la map, NULL si la map est nouvelle
-	private visibility access;			//accessibilité de la map : privée, publique ou accessible aux amis uniquement
+	private List<Marker> markerList;	//tous les lieux enregistrï¿½s sur la map, NULL si la map est nouvelle
+	private Visibility access;			//accessibilitï¿½ de la map : privï¿½e, publique ou accessible aux amis uniquement
 	
 	//constructeur
 	/**
@@ -18,7 +17,7 @@ public class map {
 	 * @param m	A list of marker which represent markers on the map
 	 * @param a	A visibility type to determine map accessibility
 	 */
-	public map(String n, List<marker> m, visibility a) {
+	public Map(String n, List<Marker> m, Visibility a) {
 		this.name = n;
 		this.markerList = m;
 		this.access = a;
@@ -38,7 +37,7 @@ public class map {
 	 * @return	A list of marker which represents all the markers of the map
 	 * @author 	GLA group 2
 	 */
-	public List<marker> getMarkerList(){
+	public List<Marker> getMarkerList(){
 		return this.markerList;
 	}
 	/**
@@ -46,7 +45,7 @@ public class map {
 	 * @return	A visibility type to determine if the map is public, private or just for friends
 	 * @author 	GLA group 2
 	 */
-	public visibility getAccess() {
+	public Visibility getAccess() {
 		return this.access;
 	}
 

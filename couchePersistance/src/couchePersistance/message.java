@@ -1,19 +1,19 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 /**
  * Message class to manage messages on markers and events
  * @author GLA group 2
  */
-public class message {
+public class Message {
 	//champs
-	private String description;	//intitulé du message/commentaire
-	private String author;	//auteur du message (nom de l'utilisateur qui l'a posté)
+	private String description;	//intitulï¿½ du message/commentaire
+	private String author;	//auteur du message (nom de l'utilisateur qui l'a postï¿½)
 	//constructeur
 	/**
 	 * Message constructor
 	 * @param d	A string which is the message
 	 * @param a	A string which represent the author of the message
 	 */
-	public message(String d, String a) {
+	public Message(String d, String a) {
 		this.description = d;
 		this.author = a;
 	}

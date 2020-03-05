@@ -1,4 +1,4 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 
 import java.util.List;
 /**
@@ -6,14 +6,14 @@ import java.util.List;
  * extends from marker
  * @author GLA group 2
  */
-public class event extends marker {
-	//duration ? je ne sais aps comment l'implémenter, DateTime ?
+public class Event extends Marker {
+	//duration ? je ne sais aps comment l'implï¿½menter, DateTime ?
 	//constructeur
 	/**
 	 * Event constructor
 	 * Same parameters than marker class
 	 */
-	public event(String n, String d, float lon, float lat, picture p, List<message> m) {
+	public Event(String n, String d, float lon, float lat, Picture p, List<Message> m) {
 		super(n, d, lon, lat, p, m);
 	}
 

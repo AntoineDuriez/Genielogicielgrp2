@@ -1,18 +1,18 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 
 import java.util.List;
 /**
  * Class marker to manage markers on maps
  * @author GLA group 2
  */
-public class marker {
+public class Marker {
 	//champs
 	private String name;	//marker name
 	private String description;	//description du marker
-	private float longitude;	//couple de float pour déterminer la position du marker
+	private float longitude;	//couple de float pour dï¿½terminer la position du marker
 	private float latitude;
-	private picture pic;	//image liée au marker, est NULL si pas d'image
-	private	List<message> messageList;	//liste des message liés au marker, NULL si pas de message
+	private Picture pic;	//image liï¿½e au marker, est NULL si pas d'image
+	private	List<Message> messageList;	//liste des message liï¿½s au marker, NULL si pas de message
 	
 	//constructeur
 	/**
@@ -24,7 +24,7 @@ public class marker {
 	 * @param p		Picture type which tie a picture to the marker
 	 * @param m		A list of message which is tie to the marker
 	 */
-	public marker(String n, String d, float lon, float lat, picture p, List<message> m) {
+	public Marker(String n, String d, float lon, float lat, Picture p, List<Message> m) {
 		this.name = n;
 		this.description = d;
 		this.longitude = lon;
@@ -71,7 +71,7 @@ public class marker {
 	 * @return	return the picture which is tie to the marker
 	 * @author GLA group 2
 	 */
-	public picture getPic() {
+	public Picture getPic() {
 		return this.pic;
 	}
 	/**
@@ -79,7 +79,7 @@ public class marker {
 	 * @return	return the list of message which is tie to the marker
 	 * @author GLA group 2
 	 */
-	public List<message> getMessageList(){
+	public List<Message> getMessageList(){
 		return this.messageList;
 	}
 }

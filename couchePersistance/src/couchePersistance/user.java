@@ -1,15 +1,15 @@
-package couchePersistance;
+package jersey_commun.couchePersistance;
 
 import java.util.List;
 /**
  * User class to caracterize users of the application
  * @author GLA group 2
  */
-public class user {
+public class User implements userDao{
 	//champs
 	private String name;	//nom de l'utilisateur
-	private List<user> friendList;	//liste des amis de l'utilisateur, NULL si pas d'amis enregistrés
-	private List<map> personalMapList;	//Liste des map personnelle de l'utilisateur, NULL si pas de maps enregistrées
+	private List<User> friendList;	//liste des amis de l'utilisateur, NULL si pas d'amis enregistrï¿½s
+	private List<Map> personalMapList;	//Liste des map personnelle de l'utilisateur, NULL si pas de maps enregistrï¿½es
 	
 	//constructor
 	/**
@@ -18,7 +18,7 @@ public class user {
 	 * @param u	A list of user which represent all the friend of the user
 	 * @param m	A list of maps which represent all personal maps of the user
 	 */
-	public user(String n, List<user> u, List<map> m) {
+	public User(String n, List<User> u, List<Map> m) {
 		this.name = n;
 		this.friendList = u;
 		this.personalMapList = m;
@@ -38,7 +38,7 @@ public class user {
 	 * @return	return the friend list of the user
 	 * @author GLA group 2
 	 */
-	public List<user> getFriendList(){
+	public List<User> getFriendList(){
 		return this.friendList;
 	}
 	/**
@@ -46,8 +46,30 @@ public class user {
 	 * @return	return this personal map list of the user
 	 * @author GLA group 2
 	 */
-	public List<map> getPersonalMapList(){
+	public List<Map> getPersonalMapList(){
 		return this.personalMapList;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void addFriend(List<User> friendList) {
+		this.friendList = friendList;
+	}
+
+	public void setPersonalMapList(List<Map> personalMapList) {
+		this.personalMapList = personalMapList;
+	}
+
+	@Override
+	public List<User> searchFriend() {
+		return this.friendList;
+	}
+
+	@Override
+	public boolean addFriend(User u) {
+		return this.friendList.add(u);
 	}
 
 }
