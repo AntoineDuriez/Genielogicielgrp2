@@ -12,11 +12,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-// A COMPLETER + JAVADOC
+//JAVADOC
 public class UserRessourceStub {
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)
-		@Path("/user")
+		@Path("/User")
 		public List<User> getUser() {
 			List<User> listUser = new ArrayList<User>();
 			User u1 = new User("Toulouse", null, null);
@@ -28,7 +28,7 @@ public class UserRessourceStub {
 
 		@GET
 		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/user")
+		@Path("/User")
 		public User searchFriend(String n) {
 			User u = new User("Mael", null, null);
 			return u;
@@ -36,14 +36,14 @@ public class UserRessourceStub {
 		
 		@PUT
 		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/user/{friendList}")
+		@Path("/User/{friendList}")
 		public boolean addFriend(User u) {
 			return true;
 		}
 
 		@DELETE
 		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/user/{friendList}")
+		@Path("/User/{friendList}")
 		public boolean deleteFriend(User u) {
 			return true;
 		}
