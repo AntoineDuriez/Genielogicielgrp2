@@ -24,6 +24,9 @@ public class Marker {
 	 * @param p		Picture type which tie a picture to the marker
 	 * @param m		A list of message which is tie to the marker
 	 */
+	public Marker() {
+		
+	}
 	public Marker(String n, String d, float lon, float lat, Picture p, List<Message> m) {
 		this.name = n;
 		this.description = d;

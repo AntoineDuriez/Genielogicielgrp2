@@ -15,20 +15,27 @@ import javax.ws.rs.core.MediaType;
 public class MapRessourceStub {
 
 	public List<Map> getMaps() {
+		List<Map> mapListTest = new ArrayList<Map>();
+		return mapListTest;
 	}
 
 	public boolean addMap(Map m) {
+		return true;
 	}
 
 	public boolean modifyMap(Map m) {
+		return true;
 	}
  	
 	public boolean deleteMap(Map m) {
+		return true;
 	}
 
 	public boolean shareMap(Map m) {
+		return true;
 	}
 
 	public String getInfosMap(Map m) {
+		return "";
 	}
 }

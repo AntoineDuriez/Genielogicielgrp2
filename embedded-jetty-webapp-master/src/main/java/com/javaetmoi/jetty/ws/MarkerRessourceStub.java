@@ -15,14 +15,22 @@ import javax.ws.rs.core.MediaType;
 public class MarkerRessourceStub {
 	
 	public List<Marker> getMarker() {
+		List<Marker> markTestList = new ArrayList<Marker>();
+		return markTestList;
 	}
 
 	public Marker addMarker() {
+		Marker markTest = new Marker();
+		return markTest;
 	}
 
 	public boolean modifyMarker(Marker m) {
+		return true;
+		
 	}
+	
 
 	public boolean deleteMarker(Marker m) {
+		return false;
 	}
 }
