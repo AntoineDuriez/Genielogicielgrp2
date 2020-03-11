@@ -32,8 +32,7 @@ function deleteServerData(url, success){
 	$.ajax({
 		method: "DELETE",
 		dataType: "json",
-		url: url,
-		data: data
+		url: url
 	}).done(success);
 }
 
