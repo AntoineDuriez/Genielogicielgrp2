@@ -1,5 +1,6 @@
 package com.example.datanucleus.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * User class to caracterize users of the application
@@ -18,10 +19,10 @@ public class User {
 	 * @param u	A list of user which represent all the friend of the user
 	 * @param m	A list of maps which represent all personal maps of the user
 	 */
-	public User(String n, List<User> u, List<Map> m) {
+	public User(String n) {
 		this.name = n;
-		this.friendList = u;
-		this.personalMapList = m;
+		this.friendList = new ArrayList<User>();
+		this.personalMapList = new ArrayList<Map>();
 	}
 	
 	//guetteur
@@ -49,5 +50,18 @@ public class User {
 	public List<Map> getPersonalMapList(){
 		return this.personalMapList;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setFriendList(List<User> friendList) {
+		this.friendList = friendList;
+	}
+
+	public void setPersonalMapList(List<Map> personalMapList) {
+		this.personalMapList = personalMapList;
+	}
+	
 
 }

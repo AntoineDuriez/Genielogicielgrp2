@@ -9,11 +9,12 @@ import javax.ws.rs.core.MediaType;
 
 import com.example.datanucleus.dao.Message;
 //JAVADOC
+@Path("/message")
 public class MessageRessourceStub {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/Message")
+	@Path("/getmessage")
 	public List<Message> getMessage() {
 		Message m1 = new Message("Salut", "message 1");
 		Message m2 = new Message("Au revoir", "message 2");

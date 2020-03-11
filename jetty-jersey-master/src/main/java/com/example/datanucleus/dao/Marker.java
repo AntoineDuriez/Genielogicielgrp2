@@ -1,5 +1,6 @@
 package com.example.datanucleus.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Class marker to manage markers on maps
@@ -24,13 +25,13 @@ public class Marker {
 	 * @param p		Picture type which tie a picture to the marker
 	 * @param m		A list of message which is tie to the marker
 	 */
-	public Marker(String n, String d, float lon, float lat, Picture p, List<Message> m) {
+	public Marker(String n, String d, float lon, float lat) {
 		this.name = n;
 		this.description = d;
 		this.longitude = lon;
 		this.latitude = lat;
-		this.pic = p;
-		this.messageList = m;
+		this.pic = new Picture("none");
+		this.messageList = new ArrayList<Message>();
 	}
 	
 	//guetteur
@@ -82,4 +83,29 @@ public class Marker {
 	public List<Message> getMessageList(){
 		return this.messageList;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setPic(Picture pic) {
+		this.pic = pic;
+	}
+
+	public void setMessageList(List<Message> messageList) {
+		this.messageList = messageList;
+	}
+	
 }

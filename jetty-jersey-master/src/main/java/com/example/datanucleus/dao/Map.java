@@ -1,5 +1,6 @@
 package com.example.datanucleus.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Class map to manage application map use
@@ -18,10 +19,10 @@ public class Map {
 	 * @param m	A list of marker which represent markers on the map
 	 * @param a	A visibility type to determine map accessibility
 	 */
-	public Map(String n, List<Marker> m, Visibility a) {
+	public Map(String n) {
 		this.name = n;
-		this.markerList = m;
-		this.access = a;
+		this.markerList = new ArrayList<Marker>();
+		this.access = Visibility.pub;
 	}
 	
 	//guetteurs
@@ -50,4 +51,15 @@ public class Map {
 		return this.access;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMarkerList(List<Marker> markerList) {
+		this.markerList = markerList;
+	}
+
+	public void setAccess(Visibility access) {
+		this.access = access;
+	}
 }

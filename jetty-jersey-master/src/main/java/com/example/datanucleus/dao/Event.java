@@ -14,7 +14,9 @@ public class Event extends Marker {
 	 * Event constructor
 	 * Same parameters than marker class
 	 */
-	public Event(String n, String d, float lon, float lat, Picture p, List<Message> m) {
-		super(n, d, lon, lat, p, m);
+	public Event(String n, String d, float lon, float lat) {
+		super(n, d, lon, lat);
 	}
+	
+	
 }

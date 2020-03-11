@@ -1,5 +1,6 @@
 package com.example.datanucleus.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Category class to manage and create markers and events categories on the application
@@ -18,10 +19,10 @@ public class Category {
 	 * @param d	A string which quickly describe the category
 	 * @param m	A list of markers which represent all markers (and events) which are in the category
 	 */
-	public Category(String n, String d, List<Marker> m) {
+	public Category(String n, String d) {
 		this.name = n;
 		this.description = d;
-		this.markerList = m;
+		this.markerList = new ArrayList<Marker>();
 	}
 	
 	//guetteur
@@ -50,4 +51,15 @@ public class Category {
 		return this.markerList;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setMarkerList(List<Marker> markerList) {
+		this.markerList = markerList;
+	}
 }

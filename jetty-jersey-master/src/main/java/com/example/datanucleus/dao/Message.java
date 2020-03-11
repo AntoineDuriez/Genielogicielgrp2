@@ -36,4 +36,11 @@ public class Message {
 		return this.author;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 }

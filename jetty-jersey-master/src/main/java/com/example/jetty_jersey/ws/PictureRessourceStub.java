@@ -10,12 +10,12 @@ import javax.ws.rs.core.MediaType;
 
 import com.example.datanucleus.dao.Picture;
 //JAVADOC
+@Path("/picture")
 public class PictureRessourceStub {
 
-	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/Picture")
+	@Path("/getpicture")
 	public List<Picture> getPicture() {
 		Picture p1 = new Picture("Photo de vacande de Boony");
 		Picture p2 = new Picture("Profil tinder de Rémy");

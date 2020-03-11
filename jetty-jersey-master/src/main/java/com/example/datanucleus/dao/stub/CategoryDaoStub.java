@@ -7,8 +7,8 @@ public class CategoryDaoStub implements CategoryDao{
 
 	@Override
 	public List<Category> getCategory() {
-		Category cat1 = new Category("Musique pour chat", "pour les chats", null);
-		Category cat2 = new Category("Pop", "pop", null);
+		Category cat1 = new Category("Musique pour chat", "pour les chats");
+		Category cat2 = new Category("Pop", "pop");
 		List<Category> listCat = new ArrayList<Category>();
 		listCat.add(cat1);
 		listCat.add(cat2);

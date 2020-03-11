@@ -1,12 +1,12 @@
 //js function for GET : get data from the server
 function getServerData(url, success){
     $.ajax({
+    	type: "GET",
         dataType: "json",
         url: url
     }).done(success);
 }
 
-//Recherche d'implémentation pour les ws
 //js function for POST : modify data which are already known
 function postServerData(url, data, success){
 	$.ajax({
@@ -50,6 +50,7 @@ function callDone(result){
 
 $(function(){
 	$("#button").click(function(){
-		getServerData("ws/example/aircraft",callDone);
+		getServerData("ws/user/getuser",callDone);
+		getServerData("ws/user/search",callDone);
 	});
 });

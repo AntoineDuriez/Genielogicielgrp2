@@ -12,8 +12,8 @@ public class MapDaoStub implements MapDao{
 	@Override
 	public List<Map> getMaps() {
 		List<Map> listMap = new ArrayList<Map>();
-		Map m1 = new Map("Aldorande", null, Visibility.pub);
-		Map m2 = new Map("Endor", null, Visibility.friend);
+		Map m1 = new Map("Aldorande");
+		Map m2 = new Map("Endor");
 		listMap.add(m1);
 		listMap.add(m2);
 		return listMap;

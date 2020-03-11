@@ -11,8 +11,8 @@ public class UserDaoStub implements UserDao {
 	@Override
 	public List<User> getUser() {
 		List<User> listUser = new ArrayList<User>();
-		User u1 = new User("Toulouse", null, null);
-		User u2 = new User("Tchoupi", null, null);
+		User u1 = new User("Toulouse");
+		User u2 = new User("Tchoupi");
 		listUser.add(u1);
 		listUser.add(u2);
 		return listUser;
@@ -20,7 +20,7 @@ public class UserDaoStub implements UserDao {
 
 	@Override
 	public User searchFriend(String n) {
-		User u = new User("Adrien", null, null);
+		User u = new User("Adrien");
 		return u;
 	}
 
