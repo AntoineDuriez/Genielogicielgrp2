@@ -22,7 +22,8 @@ function putServerData(url, data, success){
 	$.ajax({
 		type: "PUT",
 		dataType: "json",
-		url: url
+		url: url,
+		data: data
 	}).done(success);
 }
 
@@ -31,8 +32,7 @@ function deleteServerData(url, success){
 	$.ajax({
 		method: "DELETE",
 		dataType: "json",
-		url: url,
-		data: data
+		url: url
 	}).done(success);
 }
 
