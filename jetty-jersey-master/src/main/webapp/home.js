@@ -22,8 +22,7 @@ function putServerData(url, data, success){
 	$.ajax({
 		type: "PUT",
 		dataType: "json",
-		url: url,
-		data: data
+		url: url
 	}).done(success);
 }
 
