@@ -28,13 +28,13 @@ public class UserRessourceStub {
 			return listUser;
 		}
 	
-		@GET
+		@GET 
 		@Produces(MediaType.APPLICATION_JSON)
 		@Path("/search")
 		public List<User> searchFriend(String n) {
+			User u1 = new User("Mael");
+			User u2 = new User("Clement");
 			List<User> listUser = new ArrayList<User>();
-			User u1 = new User("Toulouse");
-			User u2 = new User("Tchoupi");
 			listUser.add(u1);
 			listUser.add(u2);
 			return listUser;

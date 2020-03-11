@@ -52,11 +52,11 @@ public class MapRessourceStub {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/sharemap")
-	public boolean shareMap(Map m, List<User> friend) {
+	public boolean shareMap(Map m) {
 		return true;
 	}
 
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getinfosmap")
 	public Map getMyMap(String n) {

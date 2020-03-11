@@ -50,7 +50,7 @@ function callDone(result){
 
 $(function(){
 	$("#button").click(function(){
-		getServerData("ws/user/getuser",callDone);
 		getServerData("ws/user/search",callDone);
+		getServerData("ws/user/getuser",callDone);
 	});
 });
