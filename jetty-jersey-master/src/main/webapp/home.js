@@ -47,9 +47,6 @@ function callDone(result){
 
 $(function(){
 	$("#button").click(function(){
-		/*var nom = document.getElementById("name");
-		var mail = document.getElementById("mail");
-		var msg = document.getElementById("msg");*/
 		deleteServerData("ws/mapressources/map/42",callDone);
 		getServerData("ws/mapressources/mapsss",callDone);
 		postServerData("ws/mapressources/map/2",callDone);
