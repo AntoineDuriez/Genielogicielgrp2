@@ -34,9 +34,9 @@ public class MarkerRessourceImplStub {
 	 * @return return true if the marker is added, else return false
 	 */
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addmarker")
-	public boolean addMarker() {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addmarker/{mark}")
+	public boolean addMarker(@PathParam("mark")) {
 		MarkerDaoStub mds = new MarkerDaoStub();  
 		return mds.addMarker();
 	}
@@ -46,9 +46,9 @@ public class MarkerRessourceImplStub {
 	 * @return return true if the marker is modified, else return false
 	 */
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/modifymarker")
-	public boolean modifyMarker(Marker m) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/modifymarker/{mark}")
+	public boolean modifyMarker(@PathParam("mark") Marker m) {
 		MarkerDaoStub mds = new MarkerDaoStub();  
 		return mds.modifyMarker(m);
 	}
@@ -59,8 +59,8 @@ public class MarkerRessourceImplStub {
 	 */
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/deletemarker")
-	public boolean deleteMarker(Marker m) {
+	@Path("/deletemarker/{mark}")
+	public boolean deleteMarker(@PathParam("mark") Marker m) {
 		MarkerDaoStub mds = new MarkerDaoStub();  
 		return mds.deleteMarker(m);
 	}
