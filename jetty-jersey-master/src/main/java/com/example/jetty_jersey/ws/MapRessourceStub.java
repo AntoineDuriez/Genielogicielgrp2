@@ -29,37 +29,37 @@ public class MapRessourceStub {
 	}
 
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addmap")
-	public boolean addMap() {
-		return true;
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/modifymap")
-	public boolean modifyMap(Map m) {
-		return true;
-	}
- 	
-	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/deletemap")
-	public boolean deleteMap(Map m) {
-		return true;
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/sharemap")
-	public boolean shareMap(Map m) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addmap/{nom}")
+	public boolean addMap(@PathParam("nom") String name) {
 		return true;
 	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getinfosmap")
-	public Map getMyMap(String n) {
+	@Path("/modifymap/{nom}")
+	public boolean modifyMap(@PathParam("nom") Map m) {
+		return true;
+	}
+ 	
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/deletemap/{nom}")
+	public boolean deleteMap(@PathParam("nom") Map m) {
+		return true;
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/sharemap/{nom}")
+	public boolean shareMap(@PathParam("nom") Map m) {
+		return true;
+	}
+
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getinfosmap/{nom}")
+	public Map getMyMap(@PathParam("nom") String n) {
 		Map m = new Map("Boony map");
 		return m;
 	}
