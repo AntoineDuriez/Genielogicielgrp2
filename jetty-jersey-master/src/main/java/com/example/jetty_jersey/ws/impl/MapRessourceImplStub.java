@@ -37,7 +37,7 @@ public class MapRessourceImplStub {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addmap/{nom}")
-	public boolean addMap(@PathParam("nom") String name) {
+	public boolean addMap(@PathParam("nom") Map name) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.addMap();
 	}
