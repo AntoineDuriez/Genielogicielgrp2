@@ -42,14 +42,14 @@ public class UserRessourceStub {
 		
 		@PUT
 		@Produces(MediaType.APPLICATION_JSON)
-		@Path("/friendList/{user}")
+		@Path("/addfriend/{user}")
 		public boolean addFriend(@PathParam("user") User n) {
 			return true;
 		}
 
 		@DELETE
 		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/user/{user}")
+		@Path("/deletefriend/{user}")
 		public boolean deleteFriend(@PathParam("user") User u) {
 			return true;
 		}
