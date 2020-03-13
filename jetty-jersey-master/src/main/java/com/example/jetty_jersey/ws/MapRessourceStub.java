@@ -58,7 +58,7 @@ public class MapRessourceStub {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getinfosmap/{nom}")
+	@Path("/getmymap/{nom}")
 	public Map getMyMap(@PathParam("nom") String n) {
 		Map m = new Map("Boony map");
 		return m;
