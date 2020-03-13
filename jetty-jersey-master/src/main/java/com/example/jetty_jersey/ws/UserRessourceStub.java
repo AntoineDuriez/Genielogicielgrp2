@@ -30,8 +30,8 @@ public class UserRessourceStub {
 	
 		@GET 
 		@Produces(MediaType.APPLICATION_JSON)
-		@Path("/search")
-		public List<User> searchFriend(String n) {
+		@Path("/searchfriend/{name}")
+		public List<User> searchFriend(@PathParam("user") String n) {
 			User u1 = new User("Mael");
 			User u2 = new User("Clement");
 			List<User> listUser = new ArrayList<User>();
@@ -41,16 +41,16 @@ public class UserRessourceStub {
 		}
 		
 		@PUT
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/friendList")
-		public boolean addFriend(User n) {
+		@Produces(MediaType.APPLICATION_JSON)
+		@Path("/friendList/{user}")
+		public boolean addFriend(@PathParam("user") User n) {
 			return true;
 		}
 
 		@DELETE
 		@Consumes(MediaType.APPLICATION_JSON)
-		@Path("/user/{friendList}")
-		public boolean deleteFriend(User u) {
+		@Path("/user/{user}")
+		public boolean deleteFriend(@PathParam("user") User u) {
 			return true;
 		}
 }
