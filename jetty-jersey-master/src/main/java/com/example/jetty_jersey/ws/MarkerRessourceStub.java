@@ -29,23 +29,23 @@ public class MarkerRessourceStub {
 	}
 
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addmarker")
-	public boolean addMarker() {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addmarker/{mark}")
+	public boolean addMarker(@PathParam("mark") String name) {
 		return true;
 	}
 
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/modifymarker")
-	public boolean modifyMarker(Marker m) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/modifymarker/{mark}")
+	public boolean modifyMarker(@PathParam("mark") Marker m) {
 		return true;
 	}
 
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/deletemarker")
-	public boolean deleteMarker(Marker m) {
+	@Path("/deletemarker/{mark}")
+	public boolean deleteMarker(@PathParam("mark") Marker m) {
 		return true;
 	}
 }
