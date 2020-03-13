@@ -31,7 +31,7 @@ public class MapRessourceStub {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addmap/{nom}")
-	public boolean addMap(@PathParam("nom") String name) {
+	public boolean addMap(@PathParam("nom") Map m) {
 		return true;
 	}
 
