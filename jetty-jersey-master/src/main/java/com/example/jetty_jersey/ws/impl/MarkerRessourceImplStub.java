@@ -36,7 +36,7 @@ public class MarkerRessourceImplStub {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addmarker/{mark}")
-	public boolean addMarker(@PathParam("mark")) {
+	public boolean addMarker(@PathParam("mark") Marker m) {
 		MarkerDaoStub mds = new MarkerDaoStub();  
 		return mds.addMarker();
 	}
