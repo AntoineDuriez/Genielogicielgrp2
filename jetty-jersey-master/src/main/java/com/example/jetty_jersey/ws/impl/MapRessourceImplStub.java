@@ -85,7 +85,7 @@ public class MapRessourceImplStub {
 	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getinfosmap/{nom}")
+	@Path("/getmymap/{nom}")
 	public Map getMyMap(@PathParam("nom") String s) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.getMyMap(s);
