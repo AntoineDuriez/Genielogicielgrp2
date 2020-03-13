@@ -31,7 +31,7 @@ public class MarkerRessourceStub {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addmarker/{mark}")
-	public boolean addMarker(@PathParam("mark") String name) {
+	public boolean addMarker(@PathParam("mark") Marker m) {
 		return true;
 	}
 
