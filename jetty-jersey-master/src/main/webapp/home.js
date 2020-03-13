@@ -1,29 +1,27 @@
 //js function for GET : get data from the server
 function getServerData(url, success){
     $.ajax({
-    	type: "GET",
         dataType: "json",
         url: url
     }).done(success);
 }
 
+//Recherche d'implémentation pour les ws
 //js function for POST : modify data which are already known
-function postServerData(url, data, success){
+function postServerData(url, success){
 	$.ajax({
 		type: "POST",
 		dataType: "json",
 		url: url,
-		data: data
 	}).done(success);
 }
 
 //js function for PUT : add new data
-function putServerData(url, data, success){
+function putServerData(url, success){
 	$.ajax({
 		type: "PUT",
 		dataType: "json",
 		url: url,
-		data: data
 	}).done(success);
 }
 
@@ -32,8 +30,7 @@ function deleteServerData(url, success){
 	$.ajax({
 		method: "DELETE",
 		dataType: "json",
-		url: url,
-		data: data
+		url: url
 	}).done(success);
 }
 
@@ -50,7 +47,13 @@ function callDone(result){
 
 $(function(){
 	$("#button").click(function(){
-		getServerData("ws/user/search",callDone);
-		getServerData("ws/user/getuser",callDone);
+		/*var nom = document.getElementById("name");
+		var mail = document.getElementById("mail");
+		var msg = document.getElementById("msg");*/
+		deleteServerData("ws/mapressources/map/42",callDone);
+		getServerData("ws/mapressources/mapsss",callDone);
+		postServerData("ws/mapressources/map/2",callDone);
+		putServerData("ws/user/friendlist/1",callDone);
+		
 	});
 });
