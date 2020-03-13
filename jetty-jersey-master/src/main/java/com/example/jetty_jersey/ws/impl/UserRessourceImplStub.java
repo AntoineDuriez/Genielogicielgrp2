@@ -36,8 +36,8 @@ public class UserRessourceImplStub {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/searchfriend")
-	public List<User> searchFriend(String n) {
+	@Path("/searchfriend/{nom}")
+	public List<User> searchFriend(@PathParam("nom") String n) {
 		UserDaoStub uds = new UserDaoStub(); //appel à l'implémentation bouchon
 		return uds.searchFriend(n);
 	}
@@ -47,9 +47,9 @@ public class UserRessourceImplStub {
 	 * @return	return true if the user is added to the friend list, else return false
 	 */
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addfriend")
-	public boolean addFriend(User n) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addfriend/{user}")
+	public boolean addFriend(@PathParam("user") User n) {
 		UserDaoStub uds = new UserDaoStub(); //appel à l'implémentation bouchon
 		return uds.addFriend(n);
 	}
@@ -60,8 +60,8 @@ public class UserRessourceImplStub {
 	 */
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/deletefriend")
-	public boolean deleteFriend(User u) {
+	@Path("/deletefriend/{user}")
+	public boolean deleteFriend(@PathParam("user") User u) {
 		UserDaoStub uds = new UserDaoStub(); //appel à l'implémentation bouchon
 		return uds.deleteFriend(u);
 	}
