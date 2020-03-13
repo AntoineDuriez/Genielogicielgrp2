@@ -8,7 +8,7 @@ public interface UserDao {
 	public List<User> getUser();
 	
 	/*To search a user from your FriendList*/
-	public User searchFriend(String nS);
+	public List<User> searchFriend(String nS);
 	
 	/*To add a user to your FriendList*/ 
 	public boolean addFriend(User u);

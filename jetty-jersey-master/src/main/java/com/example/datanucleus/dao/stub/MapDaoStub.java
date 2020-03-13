@@ -20,7 +20,7 @@ public class MapDaoStub implements MapDao{
 	}
 
 	@Override
-	public boolean addMap(Map m) {
+	public boolean addMap() {
 			return true;
 	}
 
@@ -40,8 +40,9 @@ public class MapDaoStub implements MapDao{
 	}
 
 	@Override
-	public String getInfosMap(Map m) {
-		return "map de toto";
+	public Map getMyMap(String s) {
+		Map m = new Map("map de toto");
+		return m;
 	}
 
 }

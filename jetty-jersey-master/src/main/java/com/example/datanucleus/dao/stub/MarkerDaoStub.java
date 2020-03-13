@@ -19,9 +19,8 @@ public class MarkerDaoStub implements MarkerDao{
 	}
 
 	@Override
-	public Marker addMarker() {
-		Marker boony = new Marker("Lieu de r�sidence de Boony", "Boony home", 2, 3);
-		return boony;
+	public boolean addMarker() {
+		return true;
 	}
 
 	@Override

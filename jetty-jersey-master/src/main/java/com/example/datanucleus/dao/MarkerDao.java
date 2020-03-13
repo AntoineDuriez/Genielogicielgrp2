@@ -8,7 +8,7 @@ public interface MarkerDao {
 	public List<Marker> getMarker();
 	
 	/*To create a new marker*/
-	public Marker addMarker();
+	public boolean addMarker();
 	
 	/*To modify a marker*/
 	public boolean modifyMarker(Marker m);

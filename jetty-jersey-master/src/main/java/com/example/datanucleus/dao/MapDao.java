@@ -8,7 +8,7 @@ public interface MapDao {
 	public List<Map> getMaps();
 	
 	/*To create a new map*/
-	public boolean addMap(Map m);
+	public boolean addMap();
 	
 	/*To modify a map which already exists*/
 	public boolean modifyMap(Map m);
@@ -18,5 +18,5 @@ public interface MapDao {
 	/*To set access of a user map, to his FriendList, Public or Private*/
 	public boolean shareMap(Map m);
 	
-	public String getInfosMap(Map m);
+	public Map getMyMap(String s);
 }
