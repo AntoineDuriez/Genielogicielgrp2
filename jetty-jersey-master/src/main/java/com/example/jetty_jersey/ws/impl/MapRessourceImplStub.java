@@ -35,9 +35,9 @@ public class MapRessourceImplStub {
 	 * @return return true if a new map is added to the map list, else return false
 	 */
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addmap")
-	public boolean addMap() {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addmap/{nom}")
+	public boolean addMap(@PathParam("nom") String name) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.addMap();
 	}
@@ -47,9 +47,9 @@ public class MapRessourceImplStub {
 	 * @return return true if the map has been modified, else return false
 	 */
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/modifymap")
-	public boolean modifyMap(Map m) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/modifymap/{nom}")
+	public boolean modifyMap(@PathParam("nom") Map m) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.modifyMap(m);
 	}
@@ -61,8 +61,8 @@ public class MapRessourceImplStub {
 	 */
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/deletemap")
-	public boolean deleteMap(Map m) {
+	@Path("/deletemap/{nom}")
+	public boolean deleteMap(@PathParam("nom") Map m) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.deleteMap(m);
 	}
@@ -72,9 +72,9 @@ public class MapRessourceImplStub {
 	 * @return return true if the map has been shared, else return false
 	 */
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/sharemap")
-	public boolean shareMap(Map m) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/sharemap/{nom}")
+	public boolean shareMap(@PathParam("nom") Map m) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.shareMap(m);
 	}
@@ -85,8 +85,8 @@ public class MapRessourceImplStub {
 	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getinfosmap")
-	public Map getMyMap(String s) {
+	@Path("/getinfosmap/{nom}")
+	public Map getMyMap(@PathParam("nom") String s) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
 		return mds.getMyMap(s);
 	}
