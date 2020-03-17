@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"couchePersistance","c":"category","l":"category(String, String, List<marker>)","url":"%3Cinit%3E(java.lang.String,java.lang.String,java.util.List)"},{"p":"couchePersistance","c":"category","l":"getDescription()"},{"p":"couchePersistance","c":"category","l":"getMarkerList()"},{"p":"couchePersistance","c":"category","l":"getName()"}]
