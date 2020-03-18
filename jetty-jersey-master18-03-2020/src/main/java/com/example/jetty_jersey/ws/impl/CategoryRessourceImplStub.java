@@ -13,6 +13,7 @@ import com.example.datanucleus.dao.stub.CategoryDaoStub;
  * Real implementation of CategoryRessource with Dao stub calls
  * @author GLA group 2
  */
+@Path("/category")
 public class CategoryRessourceImplStub {
 	/**
 	 * getCategory implementation with dao stub
