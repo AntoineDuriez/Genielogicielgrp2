@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.example.datanucleus.dao.Message;
 import com.example.datanucleus.dao.stub.MessageDaoStub;
-
+@Path("/message")
 public class MessageRessourceImplStub {
 
 	@GET
