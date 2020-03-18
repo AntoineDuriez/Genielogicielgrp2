@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.example.datanucleus.dao.Picture;
 import com.example.datanucleus.dao.stub.PictureDaoStub;
-
+@Path("/picture")
 public class PictureRessourceImplStub {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
