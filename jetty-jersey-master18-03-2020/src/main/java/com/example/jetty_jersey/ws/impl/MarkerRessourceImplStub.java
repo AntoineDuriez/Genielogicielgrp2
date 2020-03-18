@@ -18,6 +18,7 @@ import com.example.datanucleus.dao.stub.MarkerDaoStub;
  * Real implementation of MarkerRessource with Dao stub calls
  * @author GLA group 2
  */
+@Path("/marker")
 public class MarkerRessourceImplStub {
 	/**
 	 * getMarker implementation with dao stub
