@@ -1,7 +1,6 @@
 //js function for GET : get data from the server
 function getServerData(url, success){
     $.ajax({
-		type: "GET",
         dataType: "json",
         url: url
     }).done(success);
@@ -29,87 +28,55 @@ function putServerData(url, success){
 //js function for DELETE : delete data
 function deleteServerData(url, success){
 	$.ajax({
-		type: "DELETE",
+		method: "DELETE",
 		dataType: "json",
 		url: url
 	}).done(success);
 }
 
+//code de base, à tester une fois les ws fini
 function callDone(result){
 	var templateExample = _.template($('#templateExample').html());
+
 	var html = templateExample({
 		"attribute":JSON.stringify(result)
 	});
-	//test : ne prendre que la liste des marqueurs
-	//document.getElementById("result").innerHTML = JSON.stringify(result[0].markerList);
-	$("#result").append(html);
+	if (typeof toto !== 'undefined') {
+		document.write(html);
+		$("#result").append(html);
+	}
 }
 
 $(function(){
-	//Bouton pour WS de map
-	$("#buttonGetMap").click(function(){
-		getServerData("ws/map/getmap",callDone);
-	});
-	$("#buttonAddMap").click(function(){
-		putServerData("ws/map/addmap",callDone);
-	});
-	$("#buttonModifyMap").click(function(){
-		postServerData("ws/map/modifymap",callDone);
-	});
-	$("#buttonDeleteMap").click(function(){
-		deleteServerData("ws/map/deletemap",callDone);
-	});
-	$("#buttonShareMap").click(function(){
-		postServerData("ws/map/sharemap",callDone);
-	});
-	$("#buttonGetMyMap").click(function(){
-		postServerData("ws/map/getmymap",callDone);
-	});
-
-	//Bouton pour WS de user
-	$("#buttonGetUser").click(function(){
-		getServerData("ws/user/getuser",callDone);
-	});
-	$("#buttonSearchFriend").click(function(){
-		getServerData("ws/user/searchfriend",callDone);
-	});
-	$("#buttonAddFriend").click(function(){
-		putServerData("ws/user/addfriend",callDone);
-	});
-	$("#buttonDeleteFriend").click(function(){
-		deleteServerData("ws/user/deletefriend",callDone);
-	});
-
-	//Bouton pour WS marker
-	$("#buttonGetMarker").click(function(){
-		getServerData("ws/marker/getmarker",callDone);
-	});
-	$("#buttonAddMarker").click(function(){
-		putServerData("ws/marker/addmarker",callDone);
-	});
-	$("#buttonModifyMarker").click(function(){
-		postServerData("ws/marker/modifymarker",callDone);
-	});
-	$("#buttonDeleteMarker").click(function(){
-		deleteServerData("ws/marker/deletemarker",callDone);
-	});
-
-	//Bouton pour WS category
-	$("#buttonGetCategory").click(function(){
-		getServerData("ws/category/getcategory",callDone);
-	});
-
-	//Bouton pour WS message
-	$("#buttonGetMessage").click(function(){
-		getServerData("ws/message/getmessage",callDone);
-	});
-
-	//Bouton pour WS picture
-	$("#buttonGetPicture").click(function(){
-		getServerData("ws/picture/getpicture",callDone);
-	});
-
-	$("#buttonTest").click(function(){
-		getServerData("ws/impl/mapimpl/getmap",callDone);
+	$("#button").click(function(){
+		//deleteServerData("ws/map/deletemap/42",callDone);
+		window.location.reload();
+		//postServerData("ws/map/modifymap/oui",callDone);
+		//putServerData("ws/user/addfriend/oui",callDone);
+		
 	});
 });
+
+//for(let pas =0; pas<4;pas++){
+	//var base = 'maCarte';
+	//var moi = base+pas;
+	//document.write(moi);
+	var carte0 = L.map( maCarte0 ).setView([48.8266, 2.382724], 18);
+            
+	// On charge les "tuiles"
+	var tiliesStreet = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    	// Il est toujours bien de laisser le lien vers la source des données
+    	attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+    	minZoom: 1,
+    	maxZoom: 20
+ 	}).addTo(carte0);
+ 	
+//}
+
+var marker = L.marker([48.826695, 2.382724]).addTo(carte0);
+//var popup = L.popup();
+function onMapClick(e) {
+    getServerData("ws/user/getuser",callDone);
+}
+carte.on('click', onMapClick);
+            
