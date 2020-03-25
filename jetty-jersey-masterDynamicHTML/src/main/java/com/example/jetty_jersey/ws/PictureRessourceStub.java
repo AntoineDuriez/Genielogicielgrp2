@@ -17,7 +17,7 @@ public class PictureRessourceStub {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getpicture")
 	public List<Picture> getPicture() {
-		Picture p1 = new Picture("Photo de vacande de Boony");
+		Picture p1 = new Picture("Photo de vacance de Boony");
 		Picture p2 = new Picture("Profil tinder de Rémy");
 		List<Picture> listPic = new ArrayList<Picture>();
 		listPic.add(p1);

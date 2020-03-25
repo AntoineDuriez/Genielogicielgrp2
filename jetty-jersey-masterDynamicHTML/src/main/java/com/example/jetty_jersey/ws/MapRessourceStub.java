@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.example.datanucleus.dao.*;
+import com.example.datanucleus.dao.stub.MapDaoStub;
 //Bouchon webservice Map
 @Path("/map")
 public class MapRessourceStub {
@@ -31,7 +32,6 @@ public class MapRessourceStub {
 		markList.add(n1);
 		markList.add(n2);
 		m1.setMarkerList(markList);
-		System.out.println(m1);
 		listMap.add(m1);
 		listMap.add(m2);
 		return listMap;

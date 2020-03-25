@@ -35,7 +35,6 @@ public class MarkerRessourceStub {
 	@Path("/addmarker")
 	public Response addMarker(Marker m) {
 		Marker n = new Marker("marker", "marker", 89, 45);
-		System.out.println(n);
 		return Response.ok().build();
 	}
 
