@@ -24,7 +24,7 @@ public class MapRessourceStub {
 	@Path("/getmap")
 	public List<Map> getMaps() {
 		List<Map> listMap = new ArrayList<Map>();
-		Map m1 = new Map("Aldorande");
+		Map m1 = new Map("Hosnian Prime");
 		Map m2 = new Map("Endor");
 		Marker n1 = new Marker("Boony", "Boony au Brésil", 36, 45);
 		Marker n2 = new Marker("Pépito", "Pépito à la plage", 2, 13);

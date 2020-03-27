@@ -23,6 +23,15 @@ public class UserRessourceStub {
 			List<User> listUser = new ArrayList<User>();
 			User u1 = new User("Toulouse");
 			User u2 = new User("Tchoupi");
+			List<Map> listMap = new ArrayList<Map>();
+			Map m1 = new Map("Hosnian Prime");
+			Map m2 = new Map("Endor");
+			listMap.add(m1);
+			listMap.add(m2);
+			u2.setPersonalMapList(listMap);
+			List<User> friend = new ArrayList<User>();
+			friend.add(u2);
+			u1.setFriendList(friend);
 			listUser.add(u1);
 			listUser.add(u2);
 			return listUser;

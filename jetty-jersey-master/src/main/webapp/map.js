@@ -1,7 +1,7 @@
 /**
  * Javascript file for map creation
  */
-
+//Pour l'instant que la map principale
 var map = L.map('map0').fitWorld();
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {

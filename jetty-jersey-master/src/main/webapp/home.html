@@ -11,9 +11,15 @@
 
 	<body>
 
+		<script id="templateGetMap" type="text/template">
+			<div>
+				<%= attribute1%><br>
+				<%= attribute2%><br>
+			</div>
+		</script>
 		<script id="templateExample" type="text/template">
 			<div>
-				<%= attribute %>
+				<%= attribute1%><br>
 			</div>
 		</script>
 
@@ -81,9 +87,9 @@
 		</div>
 
 		<div id="result"></div>
-		
+
 	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		<script type="text/javascript" src="home.js"></script>
+		<script type="module" src="home.js"></script>
 	</body>
 </html>
