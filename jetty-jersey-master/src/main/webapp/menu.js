@@ -1,6 +1,9 @@
 import { getServerData } from './home.js'; //On importe la fonction depuis home.js
+import { afficherMap } from './map.js'; //On importe la fonction depuis map.js
 
 window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à chaque refresh
+    $("#content, #mainMap").append('<div id="map0" style="height: 100%; width: 100vw;"></div><div id="test" style="height: 97.5%; width: 0vw;margin-left:75%;"><h1> test</h1> </div>');
+    afficherMap(map0);
     getServerData("ws/map/getmap",result =>{
         var tab = new Array();
         for(var i = 0 ; i < Object.keys(result).length ; i++){
@@ -43,3 +46,18 @@ window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à c
         }
     });
 };
+
+function newPlace(){
+    var d = document.getElementById("mainMap");
+    var d_nested = document.getElementById("map0");
+    var throwawayNode = d.removeChild(d_nested);
+    d_nested = document.getElementById("test");
+    throwawayNode = d.removeChild(d_nested);
+    $("#mainMap").append('<div id="map0" style="height: 97.5%; width: 80vw;float:left;"></div><div id="test" style="height: 97.5%; width: 19vw;margin-left:75%;"><h1> test</h1> </div>');
+    afficherMap("map0");
+}
+
+//gestion des clicks sur la carte
+mainMap.oncontextmenu = newPlace;  //click droit
+mainMap.onclick = newPlace;    //click gauche
+mainMap.dblclick = newPlace;   //double click
