@@ -5,7 +5,7 @@
 */
 .navbar { background-color: #FA9A6C; }	/*fond de la navbar*/
 .navbar .navbar-brand { color: #AD5E39; }	/*nom du site*/
-.navbar .navbar-nav .nav-link {	/*toutes les autres écritures sur la navbar*/
+.navbar .navbar-nav .nav-link {	/*toutes les autres Ã©critures sur la navbar*/
 	color: #AD5E39;
 	padding-left: 10px;	/*ajustement*/
 	padding-right: 10px;
@@ -31,7 +31,9 @@ body {
     padding: 0;
     margin: 0;
 }
-html, body, #map0 {
-    height: 100%;
-    width: 100vw;
+html, body, #mainMap {
+    height: 97.5%;
+    width: 99.5vw;
+    display: inline-block;
 }
+
