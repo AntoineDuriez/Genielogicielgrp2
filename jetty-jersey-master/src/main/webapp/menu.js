@@ -1,8 +1,13 @@
-import { getServerData } from './home.js'; //On importe la fonction depuis home.js
+//On importe les fonction depuis home.js
+import { getServerData } from './home.js'; 
+import { postServerData } from './home.js'; 
+import { putServerData } from './home.js'; 
+import { deleteServerData } from './home.js'; 
+import { callDone } from './home.js'; 
 import { afficherMap } from './map.js'; //On importe la fonction depuis map.js
 
 window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à chaque refresh
-    $("#content, #mainMap").append('<div id="map0" style="height: 100%; width: 100vw;"></div><div id="test" style="height: 97.5%; width: 0vw;margin-left:75%;"><h1> test</h1> </div>');
+    $("#mainMap").append('<style type="text/css">div.content #mainMap{ height: 96.5%;width: 99vw;}</style> <div id="map0" style="height: 97.5%; width: 99vw;">');
     afficherMap(map0);
     getServerData("ws/map/getmap",result =>{
         var tab = new Array();
@@ -46,18 +51,63 @@ window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à c
         }
     });
 };
-
+function cancel(){ //vérification pour si on veut vraiment annuler l'action
+    return confirm("Etes vous sur de vouloir annuler ?");
+}
 function newPlace(){
-    var d = document.getElementById("mainMap");
-    var d_nested = document.getElementById("map0");
-    var throwawayNode = d.removeChild(d_nested);
-    d_nested = document.getElementById("test");
-    throwawayNode = d.removeChild(d_nested);
-    $("#mainMap").append('<div id="map0" style="height: 97.5%; width: 80vw;float:left;"></div><div id="test" style="height: 97.5%; width: 19vw;margin-left:75%;"><h1> test</h1> </div>');
-    afficherMap("map0");
+    if(document.getElementById('create')){ //la div create existe
+        if (cancel() == false) {
+            return;
+        }
+        var d = document.getElementById("mainMap");
+        var d_nested = document.getElementById("map0");
+        var throwawayNode = d.removeChild(d_nested);
+        var de = document.getElementById("menu");
+        var d_ne= document.getElementById("create");
+        var throwaway = de.removeChild(d_ne);
+        $("#mainMap").append('<style type="text/css">div.content #mainMap{ height: 96.5%;width: 99vw;}</style> <div id="map0" style="height: 97.5%; width: 99vw;">');
+        afficherMap(map0);
+    }else{ //là la div n'existe pas
+        var d = document.getElementById("mainMap");
+        var d_nested = document.getElementById("map0");
+        var throwawayNode = d.removeChild(d_nested);
+        $("#mainMap").append('<style type="text/css">div.content.mainMap{ height: 97.5%;width: 80vw;}</style><div id="map0" style="height: 97.5%; width: 80vw;float:left;"></div>');
+        $("#menu").append('<div id="create"style="height: 97.5%; width: 20vw;margin-left: 80vw;overflow: scroll;"><form action="/ma-page-de-traitement" method="post"><div><label for="name">Name :</label><input type="text" id="name" name="user_name"></div><div><label for="descrip">Description :</label><textarea type="text" id="descrip" name="Description "></textarea></div><div><label for="category">Category :</label><input type="texte" id="category" name="category"></div><div><input type="checkbox" id="event" name="event"><label for="scales">Evènement</label></div><div id="eventOk"></div><div id="create"><button type="put" id="buttonCreatePlace">Créer le pointeur</button></div></form></div>');
+        afficherMap("map0");
+        
+        $('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                $("#eventOk").append('<div id="debut"><label for="debut">Date de début :</label><input type="date" id="start" name="start"value="2018-07-22"min="2018-01-01" max="2030-12-31"></div><div id="fin"><label for="fin">Date de fin :</label><input type="date" id="end" name="end"value="2018-07-22"min="2018-01-01" max="2030-12-31"></div>');
+            }
+             else if($(this).prop("checked") == false){
+                if(document.getElementById('debut')){ //on jette le calendrier
+                    var de = document.getElementById("create");
+                    var d_ne= document.getElementById("debut");
+                    var throwaway = de.removeChild(d_ne);
+                }
+                if(document.getElementById('fin')){ //si la div existe
+                    var de = document.getElementById("create");
+                    var d_ne= document.getElementById("fin");
+                    var throwaway = de.removeChild(d_ne);
+                }
+            }
+            $("#buttonCreatePlace").click(function(){ //on ajoute un marker
+                //alert("envoie ok !!!");
+                $("#buttonModifyMap").click(function(){
+                    putServerData("ws/marker/addmarker",function(){
+                        alert("ok");
+                        document.reload();
+                    });
+                    
+                });
+            });
+        });
+    }
 }
 
+
+
 //gestion des clicks sur la carte
-mainMap.oncontextmenu = newPlace;  //click droit
-mainMap.onclick = newPlace;    //click gauche
+mainMap.onclick = newPlace;   //click droit
+mainMap.oncontextmenu = newPlace;   //click gauche
 mainMap.dblclick = newPlace;   //double click
