@@ -1,5 +1,5 @@
 //js function for GET : get data from the server
-export function getServerData(url, success){
+function getServerData(url, success){
     $.ajax({
 		type: "GET",
         dataType: "json",
@@ -9,7 +9,7 @@ export function getServerData(url, success){
 
 //Recherche d'implémentation pour les ws
 //js function for POST : modify data which are already known
-export function postServerData(url, success){
+function postServerData(url, success){
 	$.ajax({
 		type: "POST",
 		dataType: "json",
@@ -18,7 +18,7 @@ export function postServerData(url, success){
 }
 
 //js function for PUT : add new data
-export function putServerData(url, success){
+function putServerData(url, success){
 	$.ajax({
 		type: "PUT",
 		dataType: "json",
@@ -27,7 +27,7 @@ export function putServerData(url, success){
 }
 
 //js function for DELETE : delete data
-export function deleteServerData(url, success){
+function deleteServerData(url, success){
 	$.ajax({
 		type: "DELETE",
 		dataType: "json",

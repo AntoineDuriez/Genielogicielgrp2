@@ -2,7 +2,7 @@
  * Javascript file for map creation
  */
 //Elle fabrique une map passé en argument
-export function afficherMap(divName){
+function afficherMap(divName){
     var map = L.map(divName).fitWorld();
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -14,7 +14,7 @@ export function afficherMap(divName){
         accessToken: 'pk.eyJ1IjoiYWt1cmF3biIsImEiOiJjazN4YzJuY2oxNG9kM2tvcHFlbGJwcGhnIn0.TwypGyrBjTSXw1lejyFTMQ'
     }).addTo(map);
 
-    map.locate({setView: true, maxZoom: 16});
+    /*map.locate({setView: true, maxZoom: 16});
 
     function onLocationFound(e) {
         var radius = e.accuracy;
@@ -31,5 +31,5 @@ export function afficherMap(divName){
         alert(e.message);
     }
 
-    map.on('locationerror', onLocationError);
+    map.on('locationerror', onLocationError);*/
 }
