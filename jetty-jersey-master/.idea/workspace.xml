@@ -10,8 +10,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -26,6 +26,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alexa\OneDrive\Bureau\EIDD 2\S2\GLA\test\jetty-clement\src\main\webapp" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -44,6 +50,8 @@
       <workItem from="1585124683189" duration="15413000" />
       <workItem from="1585213460129" duration="12980000" />
       <workItem from="1585324856428" duration="1601000" />
+      <workItem from="1585740646847" duration="1881000" />
+      <workItem from="1585742628940" duration="1596000" />
     </task>
     <servers />
   </component>
@@ -51,10 +59,14 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1585324980750">
+    <state x="549" y="171" key="FileChooserDialogImpl" timestamp="1585741252583">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585324980750" />
+    <state x="549" y="171" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585741252583" />
+    <state x="477" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1585742629687">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="477" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585742629687" />
     <state x="473" y="46" width="590" height="732" key="find.popup" timestamp="1585137565734">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -13,6 +13,8 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import com.example.jetty_jersey.auth.AuthenticationFilter;
+
 public class JettyMain {
 
 	public static void main(String[] args) throws Exception {
@@ -31,7 +33,8 @@ public class JettyMain {
 		rc.packages(true, "com.example.jetty_jersey.ws");
 		rc.register(JacksonFeature.class);
 		rc.register(LoggingFilter.class);
-
+		//rc.register(AuthenticationFilter.class);
+		
 		// Add a servlet handler for web services (/ws/*)
 		ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
 		ServletContextHandler handlerWebServices = new ServletContextHandler(ServletContextHandler.SESSIONS);

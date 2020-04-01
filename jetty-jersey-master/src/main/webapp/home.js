@@ -1,5 +1,5 @@
 //js function for GET : get data from the server
-export function getServerData(url, success){
+function getServerData(url, success){
     $.ajax({
 		type: "GET",
         dataType: "json",
@@ -9,7 +9,7 @@ export function getServerData(url, success){
 
 //Recherche d'implémentation pour les ws
 //js function for POST : modify data which are already known
-export function postServerData(url, success){
+function postServerData(url, success){
 	$.ajax({
 		type: "POST",
 		dataType: "json",
@@ -18,7 +18,7 @@ export function postServerData(url, success){
 }
 
 //js function for PUT : add new data
-export function putServerData(url, success){
+function putServerData(url, success){
 	$.ajax({
 		type: "PUT",
 		dataType: "json",
@@ -27,7 +27,7 @@ export function putServerData(url, success){
 }
 
 //js function for DELETE : delete data
-export function deleteServerData(url, success){
+function deleteServerData(url, success){
 	$.ajax({
 		type: "DELETE",
 		dataType: "json",
@@ -49,14 +49,14 @@ function callDone(result){
 }
 
 $(function(){
-	//Bouton pour WS de map
+	//Boutons pour WS de map
+//**********************************************************************************************************************
 	$("#buttonGetMap").click(function(){
 		getServerData("ws/map/getmap", result =>{
-			for(var i = 0 ; i < Object.keys(result).length ; i++){
-				var templateExample = _.template($('#templateGetMap').html());
+			for(var i = 0 ; i < Object.keys(result).length ; i++){	//get map
+				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
-					"attribute1": result[i].name,
-					"attribute2": JSON.stringify(result[i].markerList)
+					"attribute": JSON.stringify(result[i]),	//éléments de chaques map
 				});
 				$("#result").append(html);
 			}
@@ -66,7 +66,7 @@ $(function(){
 		putServerData("ws/map/addmap", result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
-				"attribute1": result
+				"attribute": result
 			});
 			$("#result").append(html);
 		});
@@ -75,7 +75,7 @@ $(function(){
 		postServerData("ws/map/modifymap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
-				"attribute1": result
+				"attribute": result
 			});
 			$("#result").append(html);
 		});
@@ -84,17 +84,16 @@ $(function(){
 		deleteServerData("ws/map/deletemap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
-				"attribute1": result
+				"attribute": result
 			});
 			$("#result").append(html);
 		});
 	});
 	$("#buttonShareMap").click(function(){
 		postServerData("ws/map/sharemap",result =>{
-			var templateExample = _.template($('#templateGetMap').html());
+			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
-				"attribute1": result.name,
-				"attribute2": result.description
+				"attribute": result
 			});
 			$("#result").append(html);
 		});
@@ -103,62 +102,137 @@ $(function(){
 		postServerData("ws/map/getmymap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
-				"attribute1": result.name
+				"attribute": JSON.stringify(result)
 			});
 			$("#result").append(html);
 		});
 	});
-
+//**********************************************************************************************************************
 	//Bouton pour WS de user
+//**********************************************************************************************************************
 	$("#buttonGetUser").click(function(){
 		getServerData("ws/user/getuser",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
-				var templateExample = _.template($('#templateGetMap').html());
+				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
-					"attribute1": result[i].name,
-					"attribute2": JSON.stringify(result[i].friendList)
+					"attribute": JSON.stringify(result[i])
 				});
+				console.log(html)
 				$("#result").append(html);
 			}
 		});
 	});
 	$("#buttonSearchFriend").click(function(){
-		getServerData("ws/user/searchfriend",callDone);
+		getServerData("ws/user/searchfriend",result =>{
+			for(var i = 0 ; i < Object.keys(result).length ; i++){
+				var templateExample = _.template($('#templateGet').html());
+				var html = templateExample({
+					"attribute": JSON.stringify(result[i])
+				});
+				$("#result").append(html);
+			}
+		});
 	});
 	$("#buttonAddFriend").click(function(){
-		putServerData("ws/user/addfriend",callDone);
+		putServerData("ws/user/addfriend",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": JSON.stringify(result)
+			});
+			$("#result").append(html);
+		});
 	});
 	$("#buttonDeleteFriend").click(function(){
-		deleteServerData("ws/user/deletefriend",callDone);
+		deleteServerData("ws/user/deletefriend",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": JSON.stringify(result)
+			});
+			$("#result").append(html);
+		});
 	});
-
+//**********************************************************************************************************************
 	//Bouton pour WS marker
+//**********************************************************************************************************************
 	$("#buttonGetMarker").click(function(){
-		getServerData("ws/marker/getmarker",callDone);
+		getServerData("ws/marker/getmarker",result =>{
+			for(var i = 0 ; i < Object.keys(result).length ; i++){
+				var templateExample = _.template($('#templateGet').html());
+				var html = templateExample({
+					"attribute": JSON.stringify(result[i])
+				});
+				$("#result").append(html);
+			}
+		});
 	});
 	$("#buttonAddMarker").click(function(){
-		putServerData("ws/marker/addmarker",callDone);
+		putServerData("ws/marker/addmarker",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": JSON.stringify(result)
+			});
+			$("#result").append(html);
+		});
 	});
 	$("#buttonModifyMarker").click(function(){
-		postServerData("ws/marker/modifymarker",callDone);
+		postServerData("ws/marker/modifymarker",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": JSON.stringify(result)
+			});
+			$("#result").append(html);
+		});
 	});
 	$("#buttonDeleteMarker").click(function(){
-		deleteServerData("ws/marker/deletemarker",callDone);
+		deleteServerData("ws/marker/deletemarker",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": JSON.stringify(result)
+			});
+			$("#result").append(html);
+		});
 	});
-
+//**********************************************************************************************************************
 	//Bouton pour WS category
+//**********************************************************************************************************************
 	$("#buttonGetCategory").click(function(){
-		getServerData("ws/category/getcategory",callDone);
+		getServerData("ws/category/getcategory",result =>{
+			for(var i = 0 ; i < Object.keys(result).length ; i++){
+				var templateExample = _.template($('#templateGet').html());
+				var html = templateExample({
+					"attribute": JSON.stringify(result[i])
+				});
+				$("#result").append(html);
+			}
+		});
 	});
-
+//**********************************************************************************************************************
 	//Bouton pour WS message
+//**********************************************************************************************************************
 	$("#buttonGetMessage").click(function(){
-		getServerData("ws/message/getmessage",callDone);
+		getServerData("ws/message/getmessage",result =>{
+			for(var i = 0 ; i < Object.keys(result).length ; i++){
+				var templateExample = _.template($('#templateGet').html());
+				var html = templateExample({
+					"attribute": JSON.stringify(result[i])
+				});
+				$("#result").append(html);
+			}
+		});
 	});
-
+//*********************************************************************************************************************
 	//Bouton pour WS picture
+//**********************************************************************************************************************
 	$("#buttonGetPicture").click(function(){
-		getServerData("ws/picture/getpicture",callDone);
+		getServerData("ws/picture/getpicture",result =>{
+			for(var i = 0 ; i < Object.keys(result).length ; i++){
+				var templateExample = _.template($('#templateGet').html());
+				var html = templateExample({
+					"attribute": JSON.stringify(result[i])
+				});
+				$("#result").append(html);
+			}
+		});
 	});
-
+//**********************************************************************************************************************
 });

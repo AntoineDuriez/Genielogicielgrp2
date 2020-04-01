@@ -15,4 +15,6 @@ public interface UserDao {
 	
 	/*To remove a user from your FriendList*/
 	public boolean deleteFriend(User u);
+	
+	public boolean isPasswordOk(String ps);
 }

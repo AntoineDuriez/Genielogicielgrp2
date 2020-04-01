@@ -21,10 +21,10 @@ public class UserRessourceStub {
 		@Path("/getuser")
 		public List<User> getUser() {
 			List<User> listUser = new ArrayList<User>();
-			User u1 = new User("Toulouse");
-			User u2 = new User("Tchoupi");
+			User u1 = new User("Boony", "1234");
+			User u2 = new User("Tchoupi", "4321");
 			List<Map> listMap = new ArrayList<Map>();
-			Map m1 = new Map("Hosnian Prime");
+			Map m1 = new Map("Alderande");
 			Map m2 = new Map("Endor");
 			listMap.add(m1);
 			listMap.add(m2);
@@ -41,8 +41,8 @@ public class UserRessourceStub {
 		@Produces(MediaType.APPLICATION_JSON)
 		@Path("/searchfriend")
 		public List<User> searchFriend(String n) {
-			User u1 = new User("Mael");
-			User u2 = new User("Clement");
+			User u1 = new User("Mael","23");
+			User u2 = new User("Clement","14");
 			List<User> listUser = new ArrayList<User>();
 			listUser.add(u1);
 			listUser.add(u2);

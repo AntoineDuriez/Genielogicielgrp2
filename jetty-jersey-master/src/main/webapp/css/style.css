@@ -31,7 +31,23 @@ body {
     padding: 0;
     margin: 0;
 }
-html, body, #map0 {
-    height: 100%;
-    width: 100vw;
+html, body, #mainMap {
+    height: 96.5%;
+    width: 99vw;
+    display: inline-block;
+}
+
+/*
+**	AUTHENTICATION PAGE
+ */
+#auth-titre{
+	text-align: center;
+	margin: 5%;
+}
+.form-group{
+	margin-right: 20%;
+	margin-left: 20%;
+}
+#submit{
+	margin-left: 20%;
 }

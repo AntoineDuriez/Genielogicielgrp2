@@ -8,9 +8,13 @@ import java.util.List;
  */
 public class User {
 	//champs
+	private int id;
 	private String name;	//nom de l'utilisateur
+	private String password; //mot de passe utilisateur !!ne doit pas apparaître dans le get!!
 	private List<User> friendList;	//liste des amis de l'utilisateur, NULL si pas d'amis enregistr�s
 	private List<Map> personalMapList;	//Liste des map personnelle de l'utilisateur, NULL si pas de maps enregistr�es
+	
+	static int idGlob = 0;
 	
 	//constructor
 	/**
@@ -19,10 +23,13 @@ public class User {
 	 * @param u	A list of user which represent all the friend of the user
 	 * @param m	A list of maps which represent all personal maps of the user
 	 */
-	public User(String n) {
+	public User(String n, String ps) {
 		this.name = n;
+		this.password = ps;
 		this.friendList = new ArrayList<User>();
 		this.personalMapList = new ArrayList<Map>();
+		this.id = idGlob;
+		idGlob++;
 	}
 	
 	//guetteur
@@ -34,6 +41,11 @@ public class User {
 	public String getName() {
 		return this.name;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
 	/**
 	 * FriendList guetteur
 	 * @return	return the friend list of the user
@@ -53,6 +65,10 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+		
+	public void setPassword(String ps) {
+		this.password = ps;
 	}
 
 	public void setFriendList(List<User> friendList) {

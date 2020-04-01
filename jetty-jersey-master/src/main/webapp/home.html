@@ -11,17 +11,16 @@
 
 	<body>
 
-		<script id="templateGetMap" type="text/template">
-			<div>
-				<%= attribute1%><br>
-				<%= attribute2%><br>
-			</div>
-		</script>
-		<script id="templateExample" type="text/template">
-			<div>
-				<%= attribute1%><br>
-			</div>
-		</script>
+	<script id="templateGet" type="text/template">	<!--affichage retour get-->
+	<div>
+		<%= attribute%><br>
+	</div>
+	</script>
+	<script id="templateExample" type="text/template">	<!--retour des formes renvoyant Response-->
+	<div>
+		<%= attribute%><br>
+	</div>
+	</script>
 
 		<h1>It works !</h1>
 
@@ -60,7 +59,7 @@
 					<button id="buttonDeleteMarker">Call deleteMarker</button>
 				</div>
 			</div>
-			
+
 			<!--WS classe category-->
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
