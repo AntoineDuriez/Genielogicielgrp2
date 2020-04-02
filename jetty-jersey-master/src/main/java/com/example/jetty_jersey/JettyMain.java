@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 import com.example.jetty_jersey.auth.AuthenticationFilter;
+import com.example.jetty_jersey.auth.SimpleAuthenticationFilter;
 
 public class JettyMain {
 
@@ -33,7 +34,7 @@ public class JettyMain {
 		rc.packages(true, "com.example.jetty_jersey.ws");
 		rc.register(JacksonFeature.class);
 		rc.register(LoggingFilter.class);
-		//rc.register(AuthenticationFilter.class);
+		rc.register(SimpleAuthenticationFilter.class);
 		
 		// Add a servlet handler for web services (/ws/*)
 		ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
