@@ -10,10 +10,10 @@ function afficherMap(divName){
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYWt1cmF3biIsImEiOiJjazhpdzRldncwOHAwM2RvNWNkMjJyejFnIn0.bDaWCw4cIn2OL91W1nu6Wg'
+        accessToken: 'pk.eyJ1IjoiY2xlbWVudGdyZWdvaXJlMTIiLCJhIjoiY2s4bjNjMmFhMG05cjNlcDgxbDZmNDRxaSJ9.8gq9E_klOPVa1JJzVUvtyQ'
     }).addTo(map);
 
-    map.locate({setView: true, maxZoom: 16});
+    /*map.locate({setView: true, maxZoom: 16});
 
     function onLocationFound(e) {
         var radius = e.accuracy;
@@ -30,7 +30,7 @@ function afficherMap(divName){
         alert(e.message);
     }
 
-    map.on('locationerror', onLocationError);
+    map.on('locationerror', onLocationError);*/
     //barre de recherche d'adresse
     L.Control.geocoder().addTo(map);
 }
