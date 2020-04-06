@@ -1,6 +1,6 @@
 window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à chaque refresh
     afficherMap(mainMap);
-    getServerData("ws/map/getmap",result =>{
+    getServerData("ws/impl/mapimpl/getmap",result =>{
         var tab = new Array();
         for(var i = 0 ; i < Object.keys(result).length ; i++){
             tab[i] = result[i].name     //récupération de tous les noms de map, on suppose que c'est celle du user
@@ -71,7 +71,7 @@ $("input[type='checkbox']").click(function(){//qd on click sur la check box
 });
 
 mainMap.addEventListener('submit', (event) => {
-    putServerData("ws/marker/addmarker",result =>{
+    putServerData("ws/impl/markerimpl/addmarker",result =>{
             $("#result").append(result);
             console.log(result);
         });
