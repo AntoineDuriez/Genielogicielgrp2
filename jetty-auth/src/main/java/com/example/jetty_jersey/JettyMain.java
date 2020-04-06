@@ -1,6 +1,6 @@
 package com.example.jetty_jersey;
 
-import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Handler; 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -31,15 +31,15 @@ public class JettyMain {
 
 		// Configure Jersey
 		ResourceConfig rc = new ResourceConfig();
-		rc.packages(true, "com.example.jetty_jersey.ws");
+		rc.packages(true, "com.example.jetty_jersey.ws.impl");
 		rc.register(JacksonFeature.class);
 		rc.register(LoggingFilter.class);
 		rc.register(SimpleAuthenticationFilter.class);
 		
-		// Add a servlet handler for web services (/ws/*)
+		// Add a servlet handler for web services (/ws/impl*)
 		ServletHolder servletHolder = new ServletHolder(new ServletContainer(rc));
 		ServletContextHandler handlerWebServices = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		handlerWebServices.setContextPath("/ws");
+		handlerWebServices.setContextPath("/ws/impl");
 		handlerWebServices.addServlet(servletHolder, "/*");
 
 		// Add a handler for resources (/*)
