@@ -1,5 +1,5 @@
 window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à chaque refresh
-    getServerData("ws/user/getuser",result =>{
+    getServerData("ws/impl/userimpl/getuser",result =>{
         var friendMap = new Array();    //destiné à contenir les maps des amis
         var friendName = new Array();   //destiné à contenir les noms des amis
         //on va simuler que result[0] est le current user
