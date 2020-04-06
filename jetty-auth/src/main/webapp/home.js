@@ -1,5 +1,5 @@
 //js function for GET : get data from the server
-function getServerData(url, success){
+function getServerData(url, success){  
     $.ajax({
 		type: "GET",
         dataType: "json",
@@ -34,25 +34,12 @@ function deleteServerData(url, success){
 		url: url
 	}).done(success);
 }
-/*
-* Destiné à être supprimé : on écrira le callDone directement dans la fonction
-* Reste tant que tout n'a pas été complété : pour l'instant seul les ws de map fonctionne
-* */
-function callDone(result){
-	var templateExample = _.template($('#templateExample').html());
-
-	var html = templateExample({
-		"attribute1": result[0].access,
-		"attribute2": result[1]
-	});
-	$("#result").append(html);
-}
 
 $(function(){
 	//Boutons pour WS de map
 //**********************************************************************************************************************
 	$("#buttonGetMap").click(function(){
-		getServerData("ws/map/getmap", result =>{
+		getServerData("ws/impl/mapimpl/getmap", result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){	//get map
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
@@ -63,7 +50,7 @@ $(function(){
 		});
 	});
 	$("#buttonAddMap").click(function(){
-		putServerData("ws/map/addmap", result =>{
+		putServerData("ws/impl/mapimpl/addmap", result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": result
@@ -72,7 +59,7 @@ $(function(){
 		});
 	});
 	$("#buttonModifyMap").click(function(){
-		postServerData("ws/map/modifymap",result =>{
+		postServerData("ws/impl/mapimpl/modifymap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": result
@@ -81,7 +68,7 @@ $(function(){
 		});
 	});
 	$("#buttonDeleteMap").click(function(){
-		deleteServerData("ws/map/deletemap",result =>{
+		deleteServerData("ws/impl/mapimpl/deletemap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": result
@@ -90,7 +77,7 @@ $(function(){
 		});
 	});
 	$("#buttonShareMap").click(function(){
-		postServerData("ws/map/sharemap",result =>{
+		postServerData("ws/impl/mapimpl/sharemap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": result
@@ -99,7 +86,7 @@ $(function(){
 		});
 	});
 	$("#buttonGetMyMap").click(function(){
-		postServerData("ws/map/getmymap",result =>{
+		postServerData("ws/impl/mapimpl/getmymap",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -111,30 +98,27 @@ $(function(){
 	//Bouton pour WS de user
 //**********************************************************************************************************************
 	$("#buttonGetUser").click(function(){
-		getServerData("ws/user/getuser",result =>{
+		getServerData("ws/impl/userimpl/getuser",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
 					"attribute": JSON.stringify(result[i])
 				});
-				console.log(html)
 				$("#result").append(html);
 			}
 		});
 	});
 	$("#buttonSearchFriend").click(function(){
-		getServerData("ws/user/searchfriend",result =>{
-			for(var i = 0 ; i < Object.keys(result).length ; i++){
-				var templateExample = _.template($('#templateGet').html());
-				var html = templateExample({
-					"attribute": JSON.stringify(result[i])
-				});
-				$("#result").append(html);
-			}
+		postServerData("ws/impl/userimpl/searchfriend",result =>{
+			var templateExample = _.template($('#templateExample').html());
+			var html = templateExample({
+				"attribute": result
+			});
+			$("#result").append(html);
 		});
 	});
 	$("#buttonAddFriend").click(function(){
-		putServerData("ws/user/addfriend",result =>{
+		putServerData("ws/impl/userimpl/addfriend",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -143,7 +127,7 @@ $(function(){
 		});
 	});
 	$("#buttonDeleteFriend").click(function(){
-		deleteServerData("ws/user/deletefriend",result =>{
+		deleteServerData("ws/impl/userimpl/deletefriend",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -155,7 +139,7 @@ $(function(){
 	//Bouton pour WS marker
 //**********************************************************************************************************************
 	$("#buttonGetMarker").click(function(){
-		getServerData("ws/marker/getmarker",result =>{
+		getServerData("ws/impl/markerimpl/getmarker",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
@@ -166,7 +150,7 @@ $(function(){
 		});
 	});
 	$("#buttonAddMarker").click(function(){
-		putServerData("ws/marker/addmarker",result =>{
+		putServerData("ws/impl/markerimpl/addmarker",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -175,7 +159,7 @@ $(function(){
 		});
 	});
 	$("#buttonModifyMarker").click(function(){
-		postServerData("ws/marker/modifymarker",result =>{
+		postServerData("ws/impl/markerimpl/modifymarker",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -184,7 +168,7 @@ $(function(){
 		});
 	});
 	$("#buttonDeleteMarker").click(function(){
-		deleteServerData("ws/marker/deletemarker",result =>{
+		deleteServerData("ws/impl/markerimpl/deletemarker",result =>{
 			var templateExample = _.template($('#templateExample').html());
 			var html = templateExample({
 				"attribute": JSON.stringify(result)
@@ -196,7 +180,7 @@ $(function(){
 	//Bouton pour WS category
 //**********************************************************************************************************************
 	$("#buttonGetCategory").click(function(){
-		getServerData("ws/category/getcategory",result =>{
+		getServerData("ws/impl/categoryimpl/getcategory",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
@@ -210,7 +194,7 @@ $(function(){
 	//Bouton pour WS message
 //**********************************************************************************************************************
 	$("#buttonGetMessage").click(function(){
-		getServerData("ws/message/getmessage",result =>{
+		getServerData("ws/impl/messageimpl/getmessage",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
@@ -220,11 +204,11 @@ $(function(){
 			}
 		});
 	});
-//*********************************************************************************************************************
+//**********************************************************************************************************************
 	//Bouton pour WS picture
 //**********************************************************************************************************************
 	$("#buttonGetPicture").click(function(){
-		getServerData("ws/picture/getpicture",result =>{
+		getServerData("ws/impl/pictureimpl/getpicture",result =>{
 			for(var i = 0 ; i < Object.keys(result).length ; i++){
 				var templateExample = _.template($('#templateGet').html());
 				var html = templateExample({
