@@ -1,6 +1,6 @@
 package com.example.jetty_jersey.ws;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import com.example.datanucleus.dao.*;
 import java.util.List;
 
