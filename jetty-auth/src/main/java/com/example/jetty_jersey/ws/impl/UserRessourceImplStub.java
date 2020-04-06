@@ -35,7 +35,7 @@ public class UserRessourceImplStub {
 	 * @param n String which is the name of the person the user wants to look for
 	 * @return return a list of User
 	 */
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/searchfriend")
 	public List<User> searchFriend(String n) {
