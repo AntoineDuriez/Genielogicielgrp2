@@ -25,7 +25,6 @@ public class Map {
 		this.markerList = new ArrayList<Marker>();
 		this.access = Visibility.pub;
 	}
-	
 	//guetteurs
 	/**
 	 * name guetteur
