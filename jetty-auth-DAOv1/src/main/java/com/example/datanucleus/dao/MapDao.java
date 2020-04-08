@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface MapDao {
 	
-	/* @return this list of maps*/
-	public List<Map> getMaps();
+	/* @return the of maps starting by the name given in parameters*/
+	public List<Map> getMaps(String mapName);
 	
 	/*To create a new map*/
-	public boolean addMap();
+	public boolean addMap(String mapName);
 	
 	/*To modify a map which already exists*/
 	public boolean modifyMap(Map m);

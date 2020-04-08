@@ -1,11 +1,14 @@
 package com.example.datanucleus.dao.dn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import com.example.datanucleus.dao.Action;
 import com.example.datanucleus.dao.Map;
 import com.example.datanucleus.dao.MapDao;
 
@@ -17,16 +20,35 @@ public class MapDaoImpl implements MapDao {
 		this.pmf = pmf;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map> getMaps() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map> getMaps(String mapName) {
+		List<Map> maps = null;
+		List<Map> detached = new ArrayList<Map>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Map.class);
+			q.declareParameters("String mapName");
+			q.setFilter("name.startsWith(mapName)");
+
+			maps = (List<Map>) q.execute(mapName);
+			detached = (List<Map>) pm.detachCopyAll(maps);
+			
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();    
+			}
+			pm.close();
+		}
+		return detached;
 	}
 
 	@Override
-	public boolean addMap() {
-		Map m = new Map("My map");
+	public boolean addMap(String mapName) {
+		Map m = new Map(mapName);
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -41,7 +63,7 @@ public class MapDaoImpl implements MapDao {
 			}
 			pm.close();
 		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -52,8 +74,26 @@ public class MapDaoImpl implements MapDao {
 
 	@Override
 	public boolean deleteMap(Map m) {
-		// TODO Auto-generated method stub
-		return false;
+		String mapName = m.getName();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Map.class);
+			q.declareParameters("String mapName");
+			q.setFilter("name.startsWith(mapName)");
+			
+			Long number = (Long)q.deletePersistentAll(mapName);
+			System.out.println(number);
+			
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();    
+			}
+			pm.close();
+		}
+		return true;
 	}
 
 	@Override

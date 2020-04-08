@@ -1,5 +1,7 @@
 package datanucleus;
 
+import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
@@ -23,15 +25,28 @@ public class MapDaoImplTest {
 		//Assert.assertEquals(0, mapDao.getActions("user1").size());
 		
 		//mapDao.getActions("user2");
-		Map map = new Map("Test");
+		//Map map = new Map("Test");
 		/*
 		action.setUsername("user1");
 		action.setTitle("A title");
 		action.setContent("A content");*/
 		
 		
-		mapDao.addMap();
-
+		mapDao.addMap("ouioui");
+		mapDao.addMap("ouinon");
+		mapDao.addMap("nonoui");
+		
+		List<Map> maps = mapDao.getMaps("oui");
+		for(Map m : maps) {
+			System.out.println(m.getName());
+		}
+		for(Map m : maps) {
+			mapDao.deleteMap(m);
+		}
+		
+		
+		
+		
 		//Assert.assertEquals(1, mapDao.getActions("user1").size());
 		
 
