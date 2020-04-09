@@ -3,7 +3,6 @@ package com.example.datanucleus.dao.stub;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.datanucleus.dao.Map;
 import com.example.datanucleus.dao.User;
 import com.example.datanucleus.dao.UserDao;
 /**
@@ -16,21 +15,12 @@ public class UserDaoStub implements UserDao {
 	 */
 	@Override
 	public List<User> getUser() {
-		List<User> listUser = new ArrayList<User>();
-		User u1 = new User("Boony", "1234");
-		User u2 = new User("Tchoupi", "4321");
-		List<Map> listMap = new ArrayList<Map>();
-		Map m1 = new Map("Alderande");
-		Map m2 = new Map("Endor");
-		listMap.add(m1);
-		listMap.add(m2);
-		u2.setPersonalMapList(listMap);
-		List<User> friend = new ArrayList<User>();
-		friend.add(u2);
-		u1.setFriendList(friend);
+		List<User> listUser = new ArrayList<User>();	//fausse liste pour test
+		User u1 = new User("Boony","1234");
+		User u2 = new User("Tchoupi","4321");
 		listUser.add(u1);
 		listUser.add(u2);
-		return listUser;
+		return listUser; //renvoi de la fausse liste
 	}
 	
 	/**

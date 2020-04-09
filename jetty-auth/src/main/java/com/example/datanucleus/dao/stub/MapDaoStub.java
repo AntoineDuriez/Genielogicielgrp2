@@ -9,7 +9,7 @@ import com.example.datanucleus.dao.MapDao;
 public class MapDaoStub implements MapDao{
 
 	@Override
-	public List<Map> getMaps() {
+	public List<Map> getMaps(String mapName) {
 		List<Map> listMap = new ArrayList<Map>();
 		Map m1 = new Map("Aldorande");
 		Map m2 = new Map("Endor");
@@ -19,12 +19,12 @@ public class MapDaoStub implements MapDao{
 	}
 
 	@Override
-	public boolean addMap() {
+	public boolean addMap(String mapName) {
 			return true;
 	}
 
 	@Override
-	public boolean modifyMap(Map m) {
+	public boolean modifyMap(Map m, String newName) {
 		return true;		
 	}
 

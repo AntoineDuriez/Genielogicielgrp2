@@ -1,4 +1,5 @@
 package com.example.datanucleus.dao;
+import com.example.datanucleus.dao.fake.ActionDaoFakeImpl;
 import com.example.datanucleus.dao.stub.*;
 //JAVADOC
 public class DAO {
@@ -25,5 +26,9 @@ public class DAO {
 	
 	public static PictureDao getPictureDao() {
 		return new PictureDaoStub();
+	}
+	
+	public static ActionDao getActionDao() {
+		return new ActionDaoFakeImpl();
 	}
 }

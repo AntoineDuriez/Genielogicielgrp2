@@ -26,9 +26,9 @@ public class MapRessourceImplStub {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getmap")
-	public List<Map> getMaps() {		
+	public List<Map> getMaps(String mapName) {		
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
-		return mds.getMaps();
+		return mds.getMaps(mapName);
 	}
 	/**
 	 * addMap implementation with dao stub
@@ -39,7 +39,7 @@ public class MapRessourceImplStub {
 	@Path("/addmap")
 	public boolean addMap(Map name) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
-		return mds.addMap();
+		return mds.addMap(null);
 	}
 	/**
 	 * modifyMap implementation with dao stub
@@ -51,7 +51,7 @@ public class MapRessourceImplStub {
 	@Path("/modifymap")
 	public boolean modifyMap(Map m) {
 		MapDaoStub mds = new MapDaoStub(); //appel à l'implémentation bouchon
-		return mds.modifyMap(m);
+		return mds.modifyMap(m, null);
 	}
 	
 	/**

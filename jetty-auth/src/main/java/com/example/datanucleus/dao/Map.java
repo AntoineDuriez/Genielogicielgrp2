@@ -1,11 +1,12 @@
 package com.example.datanucleus.dao;
-
+import javax.jdo.annotations.PersistenceCapable;
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Class map to manage application map use
  * @author GLA group 2
  */
+@PersistenceCapable
 public class Map {
 	//champs
 	private String name;	//nom de la map
@@ -24,7 +25,6 @@ public class Map {
 		this.markerList = new ArrayList<Marker>();
 		this.access = Visibility.pub;
 	}
-	
 	//guetteurs
 	/**
 	 * name guetteur
