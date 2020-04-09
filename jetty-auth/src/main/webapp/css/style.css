@@ -5,7 +5,7 @@
 */
 .navbar { background-color: #FA9A6C; }	/*fond de la navbar*/
 .navbar .navbar-brand { color: #AD5E39; }	/*nom du site*/
-.navbar .navbar-nav .nav-link {	/*toutes les autres �critures sur la navbar*/
+.navbar .navbar-nav .nav-link {	/*toutes les autres écritures sur la navbar*/
 	color: #AD5E39;
 	padding-left: 10px;	/*ajustement*/
 	padding-right: 10px;
@@ -33,8 +33,8 @@ body {
 }
 html, body, #mainMap {
     height: 96.5%;
-    width: 99vw;
-    display: inline-block;
+    width: 99,5vw;
+    z-index: 1;
 }
 
 #GPSMap {
@@ -60,4 +60,81 @@ html, body, #mainMap {
 #modal{
 	margin-left: 75%;
 	background-color: #FA9A6C;
+}
+
+.myModal{
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;	
+}
+.myModal__contents {
+	background-color: #fff;
+	padding: 2rem 4rem;
+	/*on met en page le menu*/
+}
+.myModal--hidden{
+	display: none;
+}
+ 
+
+form {
+  /* Uniquement centrer le formulaire sur la page */
+  margin: 0 auto;
+  width: 500px;
+  /* Encadré pour voir les limites du formulaire */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+label {
+  /* Pour être sûrs que toutes les étiquettes ont même taille et sont correctement alignées */
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+
+input, textarea {
+  /* Pour s'assurer que tous les champs texte ont la même police.
+     Par défaut, les textarea ont une police monospace */
+  font: 1em sans-serif;
+
+  /* Pour que tous les champs texte aient la même dimension */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* Pour harmoniser le look & feel des bordures des champs texte */
+  border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+  /* Pour souligner légèrement les éléments actifs */
+  border-color: #000;
+}
+
+textarea {
+  /* Pour aligner les champs texte multi‑ligne avec leur étiquette */
+  vertical-align: top;
+
+  /* Pour donner assez de place pour écrire du texte */
+  height: 5em;
+}
+
+.button {
+  /* Pour placer le bouton à la même position que les champs texte */
+  padding-left: 90px; /* même taille que les étiquettes */
+}
+
+button {
+  /* Cette marge supplémentaire représente grosso modo le même espace que celui
+     entre les étiquettes et les champs texte */
+  margin-right: 5em;
 }
