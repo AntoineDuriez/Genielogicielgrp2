@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--Animate CSS-->
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <!-- Leaflet Geocoder CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <!--My CSS-->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Menu</title>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#">LSA</a> <!-- Nom du site -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          MY MAPS <!-- Droplist des maps : rendue dynamique -->
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbar-item-1">	<!-- Item de la droplist : générés par le js-->
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="mapAmi.html">FRIENDS MAPS</a> <!-- Bouton normal, doit mener à une page répertoriant les maps amies -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="GPS.html">GPS SERVICE</a> <!-- Bouton normal, mène à la page de GPS -->
+      </li>
+    </ul>
+     <ul class="nav navbar-nav navbar-right"> <!-- Pour placer les items suivant à droite -->
+       <li>
+       	<a class="nav-link" href="#"><i class="fa fa-user" style="font-size:30px;"></i></a> <!-- item user : pas fonctionnel-->
+        </li>
+        <li>
+       	<a class="nav-link" href="#"><i class="fa fa-sign-out" style="font-size:30px;"></i></a> <!-- item quitter le site : pas fonctionnel-->
+        </li>
+    </ul>
+  </div>
+</nav>
+<!-- map et menu si besoins est -->
+
+<div id="mainMap"></div>
+
+<!-- Modal de modification de marker-->
+<div class="modal fade" id="modalModificationMarker" tabindex="-1" role="dialog" aria-labelledby="exampleModalModificationLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalModificationLabel">Marker modification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <label for="name">Modify marker name</label><style type="text/css"></style>
+                        <input type="text" class="form-control" id="nameModif" name="user_name">
+                    </div>
+                    <div>
+                        <label for="descrip">Modify description</label>
+                        <textarea type="text" class="form-control" id="descripModif" name="Description" ></textarea>
+                    </div>
+                    <div>
+                        <label for="category">Modify category</label>
+                        <input type="text" class="form-control" id="categoryModif" name="category">
+                    </div>
+                    <div>
+                        <label for="picture">Modify picture</label>
+                        <input type="file" class="form-control" id="pictureModif" name="picture">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="create">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherModif">Marker creation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de création de message-->
+<div class="modal fade" id="modalMessageWriter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalMessage">Write a message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <label for="descrip">Your message</label>
+                        <textarea type="text" class="form-control" id="messager" name="messager"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="create">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherMessage">Post my message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de création de marker ou event-->
+<div class="modal fade" id="modalMarker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New marker creation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <label for="name">Marker name</label><style type="text/css"></style>
+                        <input type="text" class="form-control" id="name" name="user_name">
+                    </div>
+                    <div>
+                        <label for="descrip">Description</label>
+                        <textarea type="text" class="form-control" id="descrip" name="Description"></textarea>
+                    </div>
+                    <div>
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="category" name="category">
+                    </div>
+                    <div>
+                        <label for="picture">Picture</label>
+                        <input type="file" class="form-control" id="picture" name="picture">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="event" name="event" value="0">
+                        <label for="text">Event</label>
+                    </div>
+                    <div id="eventOk"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="create">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisher">Marker creation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour l'affichage des pictures -->
+<div class="modal fade" id="modalPicture" tabindex="-1" role="dialog" aria-labelledby="modalPictureTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureTitle">Modal Pictures</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="vitesse MIT augmentation colorbar.png" class="d-block w-100" alt="Aucune image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour l'affichage des messages -->
+<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="modalMessageTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMessageTitle">Messages on the marker</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselMessageControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="listOfMessage">
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselMessageControls" role="button" data-slide="prev" style="color: #FA9A6C;">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselMessageControls" role="button" data-slide="next" style="color: #FA9A6C;">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="result"></div>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+<!-- Leaflet Geocoder JS -->
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script type="text/javascript" src="home.js"></script>
+<script type="text/javascript" src="menu.js"></script> <!--pour utiliser les fonctions de menu.js-->
+
+</body>
+</html>
