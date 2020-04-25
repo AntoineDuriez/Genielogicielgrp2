@@ -1,10 +1,6 @@
 package com.example.datanucleus.dao;
-import javax.jdo.annotations.Element;
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +12,11 @@ import java.util.List;
 public class Map {
 	//champs
 	private String name;	//nom de la map
-	
-	//@PrimaryKey
-	//@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	//protected Long id = null;
-	
+	private double latitudeDeparture;
+	private double longitudeDeparture;
 	@Persistent(defaultFetchGroup="true")
-	protected List<Marker> markerList;	//tous les lieux enregistrï¿½s sur la map, NULL si la map est nouvelle
-	
-	private Visibility access;			//accessibilitï¿½ de la map : privï¿½e, publique ou accessible aux amis uniquement
+	private List<Marker> markerList;	//tous les lieux enregistr�s sur la map, NULL si la map est nouvelle
+	private Visibility access;			//accessibilit� de la map : priv�e, publique ou accessible aux amis uniquement
 	
 	//constructeur
 	/**
@@ -33,8 +25,16 @@ public class Map {
 	 * @param m	A list of marker which represent markers on the map
 	 * @param a	A visibility type to determine map accessibility
 	 */
+	
 	public Map(String n) {
 		this.name = n;
+		this.markerList = new ArrayList<Marker>();
+		this.access = Visibility.pub;
+	}
+	public Map(String n, double latDep, double lonDep) {
+		this.name = n;
+		this.latitudeDeparture = latDep;
+		this.longitudeDeparture = lonDep;
 		this.markerList = new ArrayList<Marker>();
 		this.access = Visibility.pub;
 	}
@@ -68,10 +68,6 @@ public class Map {
 		this.name = name;
 	}
 
-	public void addMarkerToList(Marker m) {
-		this.markerList.add(m);
-	}
-	
 	public void setMarkerList(List<Marker> markerList) {
 		this.markerList = markerList;
 	}
@@ -79,4 +75,18 @@ public class Map {
 	public void setAccess(Visibility access) {
 		this.access = access;
 	}
+	public double getLatitudeDeparture() {
+		return latitudeDeparture;
+	}
+	public void setLatitudeDeparture(double latitudeDeparture) {
+		this.latitudeDeparture = latitudeDeparture;
+	}
+	public double getLongitudeDeparture() {
+		return longitudeDeparture;
+	}
+	public void setLongitudeDeparture(double longitudeDeparture) {
+		this.longitudeDeparture = longitudeDeparture;
+	}
+	
+	
 }
