@@ -40,7 +40,7 @@ public class MarkerRessourceImplStub {
 	@Path("/addmarker")
 	public boolean addMarker(Marker m) {
 		MarkerDaoStub mds = new MarkerDaoStub();  
-		return mds.addMarker();
+		return mds.addMarker("a", "a", 2.287592, 48.725);
 	}
 	/**
 	 * modifyMarker implementation with dao stub

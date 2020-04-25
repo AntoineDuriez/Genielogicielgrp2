@@ -45,6 +45,8 @@ public class MapDaoImplTest {
 			System.out.println(m.getName());
 		}
 		
+		
+		
 		/*for(Map m : maps) {
 			mapDao.deleteMap(m);
 		}*/

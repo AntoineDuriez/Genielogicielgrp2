@@ -2,16 +2,20 @@ package com.example.datanucleus.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jdo.annotations.PersistenceCapable;
 /**
  * Class marker to manage markers on maps
  * @author GLA group 2
  */
+@PersistenceCapable
 public class Marker {
 	//champs
 	private String name;	//marker name
 	private String description;	//description du marker
-	private float longitude;	//couple de float pour d�terminer la position du marker
-	private float latitude;
+	// utilisation de double pour longitude et latitude car bug avec les float
+	private double longitude;	//couple de float pour d�terminer la position du marker
+	private double latitude;
 	private Picture pic;	//image li�e au marker, est NULL si pas d'image
 	private	List<Message> messageList;	//liste des message li�s au marker, NULL si pas de message
 	
@@ -25,7 +29,9 @@ public class Marker {
 	 * @param p		Picture type which tie a picture to the marker
 	 * @param m		A list of message which is tie to the marker
 	 */
-	public Marker(String n, String d, float lon, float lat) {
+	
+	
+	public Marker(String n, String d, double lon, double lat) {
 		this.name = n;
 		this.description = d;
 		this.longitude = lon;
@@ -56,7 +62,7 @@ public class Marker {
 	 * @return	return the marker longitude
 	 * @author GLA group 2
 	 */
-	public float getLongitude() {
+	public double getLongitude() {
 		return this.longitude;
 	}
 	/**
@@ -64,7 +70,7 @@ public class Marker {
 	 * @return	return the marker latitude
 	 * @author GLA group 2
 	 */
-	public float getLatitude() {
+	public double getLatitude() {
 		return this.latitude;
 	}
 	/**
@@ -92,11 +98,11 @@ public class Marker {
 		this.description = description;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 

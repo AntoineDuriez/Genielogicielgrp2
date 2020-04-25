@@ -1,5 +1,11 @@
 package com.example.datanucleus.dao;
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -10,7 +16,14 @@ import java.util.List;
 public class Map {
 	//champs
 	private String name;	//nom de la map
-	private List<Marker> markerList;	//tous les lieux enregistr�s sur la map, NULL si la map est nouvelle
+	
+	//@PrimaryKey
+	//@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
+	//protected Long id = null;
+	
+	@Persistent(defaultFetchGroup="true")
+	protected List<Marker> markerList;	//tous les lieux enregistr�s sur la map, NULL si la map est nouvelle
+	
 	private Visibility access;			//accessibilit� de la map : priv�e, publique ou accessible aux amis uniquement
 	
 	//constructeur
@@ -55,6 +68,10 @@ public class Map {
 		this.name = name;
 	}
 
+	public void addMarkerToList(Marker m) {
+		this.markerList.add(m);
+	}
+	
 	public void setMarkerList(List<Marker> markerList) {
 		this.markerList = markerList;
 	}
