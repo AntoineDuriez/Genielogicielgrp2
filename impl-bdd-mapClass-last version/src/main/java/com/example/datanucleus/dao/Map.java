@@ -1,5 +1,7 @@
 package com.example.datanucleus.dao;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -12,6 +14,7 @@ public class Map {
 	private String name;	//nom de la map
 	private double latitudeDeparture;
 	private double longitudeDeparture;
+	@Persistent(defaultFetchGroup="true")
 	private List<Marker> markerList;	//tous les lieux enregistr�s sur la map, NULL si la map est nouvelle
 	private Visibility access;			//accessibilit� de la map : priv�e, publique ou accessible aux amis uniquement
 	
@@ -22,6 +25,12 @@ public class Map {
 	 * @param m	A list of marker which represent markers on the map
 	 * @param a	A visibility type to determine map accessibility
 	 */
+	
+	public Map(String n) {
+		this.name = n;
+		this.markerList = new ArrayList<Marker>();
+		this.access = Visibility.pub;
+	}
 	public Map(String n, double latDep, double lonDep) {
 		this.name = n;
 		this.latitudeDeparture = latDep;

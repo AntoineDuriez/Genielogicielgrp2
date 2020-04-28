@@ -19,7 +19,7 @@ public class MarkerDaoStub implements MarkerDao{
 	}
 
 	@Override
-	public boolean addMarker() {
+	public boolean addMarker(String n, String d, double lon, double lat) {
 		return true;
 	}
 

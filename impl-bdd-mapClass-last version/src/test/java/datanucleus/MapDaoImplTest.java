@@ -36,14 +36,16 @@ public class MapDaoImplTest {
 		action.setContent("A content");*/
 		
 		
-		mapDao.addMap("Alderande");
-		mapDao.addMap("Hosnian Prime");
-		mapDao.addMap("Coruscant");
+		mapDao.addMap("Alderande",778,6778);
+		mapDao.addMap("Hosnian Prime",889,567);
+		mapDao.addMap("Coruscant",567,78);
 		
 		List<Map> maps = mapDao.getMaps();
 		for(Map m : maps) {
 			System.out.println(m.getName());
 		}
+		
+		
 		
 		/*for(Map m : maps) {
 			mapDao.deleteMap(m);

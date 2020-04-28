@@ -11,6 +11,7 @@ import javax.jdo.Transaction;
 import com.example.datanucleus.dao.Action;
 import com.example.datanucleus.dao.Map;
 import com.example.datanucleus.dao.MapDao;
+import com.example.datanucleus.dao.Marker;
 
 public class MapDaoImpl implements MapDao {
 
@@ -23,6 +24,7 @@ public class MapDaoImpl implements MapDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Map> getMaps() {
+		//String mapName = "nonoui";
 		List<Map> maps = null;
 		List<Map> detached = new ArrayList<Map>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -30,8 +32,8 @@ public class MapDaoImpl implements MapDao {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Map.class);
-			/*q.declareParameters("String mapName");
-			q.setFilter("name.startsWith(mapName)");*/
+			//q.declareParameters("String mapName");
+			//q.setFilter("name.startsWith(mapName)");
 
 			maps = (List<Map>) q.execute();
 			detached = (List<Map>) pm.detachCopyAll(maps);
@@ -54,7 +56,11 @@ public class MapDaoImpl implements MapDao {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
+			/*Marker mark = new Marker("fdsf","dfsdf",3232,545);
+			List<Marker> list = new ArrayList<Marker>();
+			list.add(mark);
+			m.setMarkerList(list);*/
+			System.out.println(m.getMarkerList());
 			pm.makePersistent(m);
 
 			tx.commit();
@@ -101,11 +107,31 @@ public class MapDaoImpl implements MapDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Map getMyMap(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Map getMyMap(String mapName) {
+		List<Map> maps = null;
+		List<Map> detached = new ArrayList<Map>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Map.class);
+			q.declareParameters("String mapName");
+			q.setFilter("name == mapName");
 
+			maps = (List<Map>) q.execute(mapName);
+			detached = (List<Map>) pm.detachCopyAll(maps);
+			
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();    
+			}
+			pm.close();
+		}
+		return detached.get(0);
+
+	}
 }
