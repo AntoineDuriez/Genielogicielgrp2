@@ -98,6 +98,4 @@ private PersistenceManagerFactory pmf;
 		}
 		return true;
 	}
-	
-	
 }

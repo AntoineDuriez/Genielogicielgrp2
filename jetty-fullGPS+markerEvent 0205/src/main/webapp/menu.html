@@ -51,7 +51,7 @@
     </ul>
      <ul class="nav navbar-nav navbar-right"> <!-- Pour placer les items suivant à droite -->
        <li>
-       <a class="nav-link" href="#"><i class="fa fa-file" style="font-size:30px;"></i></a>   <!--item de modification de map-->
+       <a class="nav-link" href="#"><i class="fa fa-file my-modify-map-button" style="font-size:30px;"></i></a>   <!--item de modification de map-->
        </li>
        <li>
        <a class="nav-link" href="#"><i class="fa fa-trash my-delete-map-button" style="font-size:30px;"></i></a> <!--item de delete de map-->
@@ -70,6 +70,53 @@
     <div id="mainMap"></div>
 </div>
 
+<!-- modal de modification d'event -->
+<div class="modal fade" id="modalModificationEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalModificationEventLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalModificationEventLabel">Marker modification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div>
+                        <label for="name">Modify marker name</label><style type="text/css"></style>
+                        <input type="text" class="form-control" id="nameModifEvent" name="user_name">
+                    </div>
+                    <div>
+                        <label for="descrip">Modify description</label>
+                        <textarea type="text" class="form-control" id="descripModifEvent" name="Description" ></textarea>
+                    </div>
+                    <div>
+                        <label for="category">Modify category</label>
+                        <input type="text" class="form-control" id="categoryModifEvent" name="category">
+                    </div>
+                    <div>
+                        <label for="picture">Modify picture</label>
+                        <input type="file" class="form-control" id="pictureModifEvent" name="picture">
+                    </div>
+                        <label for="event">Modify event date</label>
+                        <div id="debut">
+                            <label for="debut">Starting date</label>
+                            <input type="date" class="form-control" id="startModifEvent">
+                        </div>
+                        <div id="fin">
+                            <label for="fin">Ending date</label>
+                            <input type="date" class="form-control" id="endModifEvent">
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="create">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherModifEvent">Event creation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal de modification de marker -->
 <div class="modal fade" id="modalModificationMarker" tabindex="-1" role="dialog" aria-labelledby="exampleModalModificationLabel" aria-hidden="true">
@@ -166,6 +213,34 @@
         </div>
     </div>
 </div>
+
+<!-- Modal modification de maps existantes-->
+<div class="modal fade" id="modalMapModifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalModificationLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalMapModifier">Modify the map</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="form-add-map">
+                <div class="modal-body">
+                    <div>
+                        <label for="name">New map name</label>
+                        <input type="text" value="La map de Boony" class="form-control" id="nameMapModif" name="nameMap"> <!--On doit récupérer l'input pour l'envoyer à addMap-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="create">
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherMapModif">Apply modification</button> <!--bouton de fermeture-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Modal de création de message-->
 <div class="modal fade" id="modalMessageWriter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -224,7 +299,9 @@
                         <input type="checkbox" id="event" name="event" value="0">
                         <label for="text">Event</label>
                     </div>
-                    <div id="eventOk"></div>
+                    <div id="dateGenerator">
+                        <div id="eventOk"></div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

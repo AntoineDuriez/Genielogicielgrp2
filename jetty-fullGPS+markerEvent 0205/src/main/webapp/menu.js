@@ -1,27 +1,17 @@
 window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à chaque refresh
 
-    /*let map = L.map("mainMap").setView([48.852969, 2.349903], 13)
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYWt1cmF3biIsImEiOiJjazhpdzRldncwOHAwM2RvNWNkMjJyejFnIn0.bDaWCw4cIn2OL91W1nu6Wg'
-    }).addTo(map);*/
-
    getServerData("ws/impl/mapimpl/getmap", result => {
         var tabName;
         var tabLat;
         var tabLon;
         var tabMarkerList = new Array();
-        var map;
+       var map;
         if(Object.keys(result).length != 0){
             tabName = result[0].name;
             tabLat = result[0].latitudeDeparture;
             tabLon = result[0].longitudeDeparture;
             tabMarkerList = result[0].markerList;
-            map = changeMyCurrentMap(tabLat, tabLon, tabMarkerList);
+            map = changeMyCurrentMap(tabName, tabLat, tabLon, tabMarkerList);
         }else{
             console.log("Pas de map, Veuillez en créer une");
         }
@@ -57,6 +47,9 @@ window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à c
             }
         });
     });
+
+
+
     //Création des nouvelles maps
     $(".my-new-map-button").click(function(){ //Bouton pour appeler la modal de création de nouvelles map
         $('#modalMapBuilder').modal('show');    //Affichage de la modal
@@ -74,18 +67,22 @@ window.onload = function() {    //Toutes les fonctions ci-dessous s'execute à c
         });
     };
 };  //!!!!!!! SORTIE DU ONLOAD !!!!!!!
+
+
 //Gestion de l'affichage des différentes maps de l'utilisateur
-function changeMyCurrentMap(lat, lon,markerList){
+function changeMyCurrentMap(name, lat, lon,markerList){
     console.log(markerList);
     if(markerList == null){
+        console.log(markerList);
         markerList = new Array();
     }
+    console.log(markerList);
     $("#mainMap").remove(); //On remove le conteneur de map existant (sinon on ne peut pas le remplir)
     $("#mapGenerator").append('<div id="mainMap" style="height: 96.5%;\n' + //On remet un conteneur vide
         '\twidth: 99.5vw;\n' +
         '\tz-index: 5;"></div>');
     //On crée la map avec les coordonnées voulues
-    var map = L.map("mainMap").setView([lat, lon], 13)
+    var map = L.map("mainMap").setView([lat, lon], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -97,6 +94,30 @@ function changeMyCurrentMap(lat, lon,markerList){
 
     //barre de recherche d'adresse
     L.Control.geocoder().addTo(map);
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    $(".my-modify-map-button").click(function(){    //Bouton pour modifier le nom d'une map, doit garder tous les markers
+        console.log(name);
+        document.getElementById("nameMapModif").setAttribute('value',name); //ancien nom
+        $('#modalMapModifier').modal('show');
+        document.getElementById("finisherMapModif").onclick = function() {
+            var newName = document.getElementById("nameMapModif").value;    //nouveau nom
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //++++++++++A REMPLACER PAR MODIFYMAP
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            deleteServerData("ws/impl/mapimpl/deletemap/"+name, result=>{   //Retrait de la map avec l'ancien nom
+                console.log(name);
+            });
+            putServerData("ws/impl/mapimpl/addmap/"+newName+"/"+lat+"/"+lon, result =>{ //Nouvel ajout avec le nouveau nom, conserve ville d'ancrage et markers
+                changeMyCurrentMap(newName, lat, lon, markerList);
+            });
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        }
+    });
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Création de marker : les marqueurs sont crées pour la current map, celle qui occupe le conteneur à l'instant où ils sont créés (A IMPLANTER)
     var popup = L.popup();  //création d'un popup
     //fonction d'action au clic sur la map
@@ -119,18 +140,21 @@ function changeMyCurrentMap(lat, lon,markerList){
             "latitude": 0,
             "longitude": 0,
             "messageList":[]
-        }
+        };
+        var dateControl = {"start": "",
+            "end": ""};
         //Conteneur geoJson, pour faciliter l'implémentation géographique, contient le Json ci-dessus
         var geojsonFeature = {
             "type": "Feature",
             "properties":{
-                "contentJson": c    //les attributs Json du marqueur
+                "contentJson": c,    //les attributs Json du marqueur
+                "date": dateControl
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [e.latlng.lat, e.latlng.lng]
             }
-        }
+        };
         L.DomEvent.on(btn, 'click', () => { //lorsqu'on clique sur le bouton pour créer un marqueur
             $('#modalMarker').modal('show');    //affichage de la modal de création
             document.getElementById("finisher").onclick = function() {
@@ -141,20 +165,24 @@ function changeMyCurrentMap(lat, lon,markerList){
                 c.picture = document.getElementById("picture").value;   //pas encore fonctionnel A IMPLANTER
                 c.latitude = e.latlng.lat;
                 c.longitude = e.latlng.lng;
+                console.log(document.getElementById("event").checked);
+                if(document.getElementById("event").checked){
+                    dateControl.start = document.getElementById("start").value;
+                    dateControl.end = document.getElementById("end").value;
+                }
+                console.log(geojsonFeature.properties.dateStart);
                 var marker;     //création du marqueur
                 //implantation du marqueur grâce à geoJson
                 L.geoJson(geojsonFeature, {
                     pointToLayer: function(feature, latlng){
                         //si c'est un event (A IMPLANTER : FAIRE COMME POUR LA PARTIE MARKER MAIS AVEC LES DATES
                         if(document.getElementById("event").checked){
-                            var dateControl = {start, end};
-                            dateControl.start = document.getElementById("start").value;
-                            dateControl.end = document.getElementById("end").value;
                             marker = createEvent(c, marker, dateControl);
                         }else{
                             //si c'est un marker (FINIR L'IMPLANTATION)
                             marker = createMarker(c, marker);
                         }
+                        console.log(marker);
                         marker = marker.on("popupopen", onPopupOpen);   //action à réaliser sur le current marker
                         putServerData("ws/impl/markerimpl/addmarker/"+c.name+"/"+c.description+"/"+c.longitude+"/"+c.latitude+"/"+c.category, result =>{
                             markerList.push(marker);
@@ -163,10 +191,9 @@ function changeMyCurrentMap(lat, lon,markerList){
                         return marker;
                     }
                 }).addTo(map);  //ajout à la current map
-            }
+            };
             map.closePopup(); //tous les popups se ferment
         });
-
     }
     map.on('click', onMapClick); //execution de la fonction au clic
 
@@ -212,12 +239,12 @@ function changeMyCurrentMap(lat, lon,markerList){
             }
         });
         $(".marker-modify-button").click(function(){    //Pour la modification de marker uniquement (IMPLANTER LA VERSION POUR LES EVENT)
-            $('#modalModificationMarker').modal('show');    //affichage de la modal de modification
             document.getElementById("nameModif").setAttribute('value',tempMarker.feature.properties.contentJson.name);
             $('#descripModif').val(tempMarker.feature.properties.contentJson.description);
             document.getElementById("categoryModif").setAttribute('value',tempMarker.feature.properties.contentJson.category);
             //Pour le picture (A IMPLANTER)
             document.getElementById("pictureModif").setAttribute('value',tempMarker.feature.properties.contentJson.picture);
+            $('#modalModificationMarker').modal('show');    //affichage de la modal de modification
             //on supprime l'ancien marker et on en recrée un avec les nouvelles infos au même endroit
             var geojsonFeatureModifier = {
                 "type": "Feature",
@@ -228,7 +255,7 @@ function changeMyCurrentMap(lat, lon,markerList){
                     "type": "Point",
                     "coordinates": [tempMarker.feature.properties.contentJson.latitude, tempMarker.feature.properties.contentJson.longitude]
                 }
-            }
+            };
             document.getElementById("finisherModif").onclick = function() { //bouton de fin de modification
                 map.removeLayer(tempMarker); 
                 deleteServerData("ws/impl/markerimpl/deletemarker/"+tempMarker.feature.properties.contentJson.name, result =>{
@@ -259,6 +286,67 @@ function changeMyCurrentMap(lat, lon,markerList){
                 });
             }
         });
+        $(".event-modify-button").click(function(){    //modification des events
+            document.getElementById("nameModifEvent").setAttribute('value',tempMarker.feature.properties.contentJson.name);
+            $('#descripModifEvent').val(tempMarker.feature.properties.contentJson.description);
+            document.getElementById("categoryModifEvent").setAttribute('value',tempMarker.feature.properties.contentJson.category);
+            //Pour le picture (A IMPLANTER)
+            document.getElementById("pictureModifEvent").setAttribute('value',tempMarker.feature.properties.contentJson.picture);
+            document.getElementById("startModifEvent").setAttribute('value',tempMarker.feature.properties.date.start);
+            document.getElementById("endModifEvent").setAttribute('value',tempMarker.feature.properties.date.end);
+            $('#modalModificationEvent').modal('show');    //affichage de la modal de modification
+            //on supprime l'ancien marker et on en recrée un avec les nouvelles infos au même endroit
+            var geojsonFeatureModifier = {
+                "type": "Feature",
+                "properties":{
+                    "contentJson": tempMarker.feature.properties.contentJson,
+                    "date": tempMarker.feature.properties.date
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [tempMarker.feature.properties.contentJson.latitude, tempMarker.feature.properties.contentJson.longitude]
+                }
+            };
+            document.getElementById("finisherModifEvent").onclick = function() { //bouton de fin de modification
+                map.removeLayer(tempMarker);
+                //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                //++++++++++ MODIFICATION DU 30/04 : POUR LA PARTIE BDD : ++++++++++
+                deleteServerData("ws/impl/markerimpl/deletemarker/"+tempMarker.feature.properties.contentJson.name, result =>{
+                    markerList.splice(markerList.indexOf(tempMarker), 1);
+                    console.log(markerList);
+                });
+                //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                //Attribution des nouvelles valeurs
+                tempMarker.feature.properties.contentJson.name = document.getElementById("nameModifEvent").value;
+                tempMarker.feature.properties.contentJson.description = document.getElementById("descripModifEvent").value;
+                tempMarker.feature.properties.contentJson.category = document.getElementById("categoryModifEvent").value;
+                tempMarker.feature.properties.contentJson.picture = document.getElementById("pictureModifEvent").value;
+                tempMarker.feature.properties.date.start = document.getElementById("startModifEvent").value;
+                tempMarker.feature.properties.date.end = document.getElementById("endModifEvent").value;
+                //création du marker modifié
+                L.geoJson(geojsonFeatureModifier, {
+                    pointToLayer: function(feature, latlng){
+                        tempMarker = createEvent(tempMarker.feature.properties.contentJson, tempMarker,tempMarker.feature.properties.date);
+                        tempMarker = tempMarker.on("popupopen", onPopupOpen);
+                        return tempMarker;
+                    }
+                }).addTo(map);  //Ajout à la map courante
+                console.log(tempMarker);
+                //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                //++++++++++ MODIFICATION DU 30/04 : POUR LA PARTIE BDD : ++++++++++
+                //++++++++++ BESOIN D'UN MODIFYEVENT POUR PRENDRE EN COMPTE LES DATES++++++++++
+                //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                putServerData("ws/impl/markerimpl/addmarker/"+tempMarker.feature.properties.contentJson.name+"/"
+                    +tempMarker.feature.properties.contentJson.description+"/"
+                    +tempMarker.feature.properties.contentJson.longitude+"/"
+                    +tempMarker.feature.properties.contentJson.latitude+"/"
+                    +tempMarker.feature.properties.contentJson.category, result=>{
+                    markerList.push(tempMarker);
+                    console.log(markerList);
+                });
+                //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            }
+        });
         $(".message-adder-button").click(function () {  //Ajout de message sur un marker/event
             $('#modalMessageWriter').modal('show'); //Affichage de la modal de création de message
             //Même système qu'en haut, on considère l'ajout d'un message comme la modification du marker
@@ -266,23 +354,28 @@ function changeMyCurrentMap(lat, lon,markerList){
             var geojsonFeatureMessager = {
                 "type": "Feature",
                 "properties":{
-                    "contentJson": tempMarker.feature.properties.contentJson
+                    "contentJson": tempMarker.feature.properties.contentJson,
+                    "date": tempMarker.feature.properties.date
                 },
                 "geometry": {
                     "type": "Point",
                     "coordinates": [tempMarker.feature.properties.contentJson.latitude, tempMarker.feature.properties.contentJson.longitude]
                 }
-            }
+            };
             document.getElementById("finisherMessage").onclick = function(){
                 deleteServerData("ws/impl/markerimpl/deletemarker/"+tempMarker.feature.properties.contentJson.name, result=>{
                     markerList.splice(markerList.indexOf(tempMarker), 1);
                     console.log(markerList);
-                })
+                });
                 tempMarker.feature.properties.contentJson.messageList.push(document.getElementById("messager").value);  //Ajout du nouveau message à la liste
                 //création du marker modifié
                 L.geoJson(geojsonFeatureMessager, {
                     pointToLayer: function(feature, latlng){
-                        tempMarker = createMarker(tempMarker.feature.properties.contentJson, tempMarker);
+                        if(document.getElementById("event").checked){
+                            tempMarker = createEvent(tempMarker.feature.properties.contentJson, tempMarker, tempMarker.feature.properties.date);
+                        }else{
+                            tempMarker = createMarker(tempMarker.feature.properties.contentJson, tempMarker);
+                        }
                         tempMarker = tempMarker.on("popupopen", onPopupOpen);
                         return tempMarker;
                     }
@@ -303,75 +396,73 @@ function changeMyCurrentMap(lat, lon,markerList){
 //récupération de toutes les maps de la bdd
 function allMyMaps() {
     getServerData("ws/impl/mapimpl/getmap", result => {
-        var tabName = new Array();
-        var tabLat = new Array();
-        var tabLon = new Array();
-        var tabMarkerList = new Array();
+        var tabName = [];
+        var tabLat = [];
+        var tabLon = [];
+        var tabMarkerList = [];
+        console.log(result);
         for (var i = 0; i < Object.keys(result).length; i++) {
             tabName[i] = result[i].name;     //récupération de tous les noms de map
             tabLat[i] = result[i].latitudeDeparture;    //récupération de toutes les latitudes associées
             tabLon[i] = result[i].longitudeDeparture;   //Idem pour les longitudes
             tabMarkerList[i] = result[i].markerList;
         }
+        console.log(tabName);
         //Pour chaque nom, on crée un bouton dans la droplist
-        for (var i = 0; i < Object.keys(result).length; i++) {
-            /*if(tabMarkerList[i] == null){
-                tabMarkerList[i] = new Array();
-            }*/
-            console.log(tabMarkerList[i]);
-            //Au clic, on appel changeMyCurrentMap avec la position : la map appelée devient la current map
-            $("#navbar-item-1").append('<a class="dropdown-item" type="button" onclick="changeMyCurrentMap('+tabLat[i]+',' +tabLon[i]+',' +tabMarkerList[i]+')">' + tabName[i] + '</a>');
-            //console.log(result);
+        for (var j = 0; j < Object.keys(result).length; j++) {
+            console.log(tabMarkerList[j]);
+            // Au clic, on appel changeMyCurrentMap avec la position : la map appelée devient la current map
+            $("#navbar-item-1").append(`<a class="dropdown-item" type="button" onclick="changeMyCurrentMap('${tabName[j]}','${tabLat[j]}','${tabLon[j]}',${tabMarkerList[j]})">${tabName[j]}</a>`);
         }
     });
 }
 //Fonction de création d'évènements
 function createEvent(c, marker, d){
     var choicer;
-    //Cas sans images ni messages
-    if(c.picture == "" && c.messageList.length == 0) {
+    //Cas avec images et messages
+    if(c.picture != "" && c.messageList.length != 0) {
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category + "<br><b>from </b>"+ d.start +"<b> to </b>"+ d.end +
             "<br>" +
             "<div class='d-flex justify-content-between'>" +
             "<button type=\"button\" class=\"btn btn-sm marker_btn\" data-toggle=\"modal\" data-target=\"#modalPicture\">Show pictures</button>" +
-            "<button type=\"button\" class=\"btn btn-sm marker_btn\" data-toggle=\"modal\" data-target=\"#modalMessage\">Show messages</button>" +
+            "<button type=\"button\" class=\"btn btn-sm marker_btn message-shower-button\" data-toggle=\"modal\" data-target=\"#modalMessage\">Show messages</button>" +
             "</div><div class='d-flex justify-content-between'>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn\" id=\"showMeMessage\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn message-adder-button\" id=\"showMeMessage\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn event-modify-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
+            "</div>")
+            .openPopup();
+        //Cas sans image et avec messages
+    }else if(c.picture == "" && c.messageList.length != 0) {
+        choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category + "<br><b>from </b>"+ d.start +"<b> to </b>"+ d.end +
+            "<br>" +
+            "<div class='d-flex justify-content-between'>" +
+            "<button type=\"button\" class=\"btn btn-sm marker_btn message-shower-button\" data-toggle=\"modal\" data-target=\"#modalMessage\">Show messages</button>" +
+            "</div><div class='d-flex justify-content-between'>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn message-adder-button\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn event-modify-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
         //Cas avec image et sans messages
-    }else if(c.picture != "" && c.messageList.length == 0) {
-        choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category + "<br><b>from </b>"+ d.start +"<b> to </b>"+ d.end +
-            "<br>" +
-            "<div class='d-flex justify-content-between'>" +
-            "<button type=\"button\" class=\"btn btn-sm marker_btn\" data-toggle=\"modal\" data-target=\"#modalMessage\">Show messages</button>" +
-            "</div><div class='d-flex justify-content-between'>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
-            "</div>")
-            .openPopup();
-        //Cas sans image et avec message
-    }else if(c.picture == "" && c.messageList.length != 0){
+    }else if(c.picture != "" && c.messageList.length == 0){
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category + "<br><b>from </b>"+ d.start +"<b> to </b>"+ d.end +
             "<br>" +
             "<div class='d-flex justify-content-between'>" +
             "<button type=\"button\" class=\"btn btn-sm marker_btn\" data-toggle=\"modal\" data-target=\"#modalPicture\">Show pictures</button>" +
             "</div><div class='d-flex justify-content-between'>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn message-adder-button\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn event-modify-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
-        //Cas avec image et message
+        //Cas sans images ni messages
     }else{
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>"+ c.name +"</b><br>"+ c.description +"<br>Category: "+ c.category + "<br><b>from </b>"+ d.start +"<b> to </b>"+ d.end +
             "<br>" +
             "<div class='d-flex justify-content-between'>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
-            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn message-adder-button\" data-toggle=\"modal tooltip\" data-target=\"#modalMessage\" data-placement='bottom' title=\"Add\"><i class=\"fa fa-plus pr-2\" aria-hidden=\"true\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn event-modify-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Modify\"><i class=\"fa fa-pencil pr-2\" aria-hidden=\"true\"></i></button>" +
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
@@ -381,7 +472,7 @@ function createEvent(c, marker, d){
 //Fonction de création de marker
 function createMarker(c, marker){
     var choicer;
-    //Cas sans image ni message
+    //Cas avec images et messages
     if(c.picture != "" && c.messageList.length != 0) {
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category +
             "<br>" +
@@ -394,7 +485,7 @@ function createMarker(c, marker){
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
-        //Cas sans image et avec message
+        //Cas sans images et avec messages
     }else if(c.picture == "" && c.messageList.length != 0) {
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category +
             "<br>" +
@@ -406,7 +497,7 @@ function createMarker(c, marker){
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
-        //Cas savec image et sans message
+        //Cas avec images et sans messages
     }else if(c.picture != "" && c.messageList.length == 0){
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>" + c.name + "</b><br>" + c.description + "<br><b>Category: </b>" + c.category +
             "<br>" +
@@ -418,7 +509,7 @@ function createMarker(c, marker){
             "<button type=\"button\" class=\"btn btn_link btn-sm mt-1 changer_btn marker-delete-button\" data-toggle=\"modal tooltip\" data-placement='bottom' title=\"Delete\"><i class=\"fa fa-trash pr-2\"></i></button>" +
             "</div>")
             .openPopup();
-        //Cas avec image et message
+        //Cas sans images ni messages
     }else{
         choicer = L.marker([c.latitude, c.longitude]).bindPopup("<b>"+ c.name +"</b><br>"+ c.description +"<br>Category: "+ c.category +
             "<br>" +
@@ -465,14 +556,13 @@ $("input[type='checkbox']").click(function(){//quand on clicue sur la check box
         //var heure = date.getHours() + ':' + date.getMinutes();
         var today = annee+mois+jour+heure;
         //console.log(today);
+
+        $("#eventOk").remove(); //On remove le conteneur de map existant (sinon on ne peut pas le remplir)
+        $("#dateGenerator").append('<div id="eventOk"></div>');
         $("#eventOk").append('<div id="debut"><label for="debut">Date de début :</label><input type="date" class="form-control" id="start" name="start" value="'+today+'" min="'+today+'">' +
             '</div><div id="fin"><label for="fin">Date de fin :</label><input type="date" class="form-control" id="end" name="end"value="'+today+'"min="'+today+'"></div>');
     }else if($(this).prop("checked") == false){ //si la div existe
-        var de = document.getElementById("eventOk");
-        var d_ne= document.getElementById("fin");
-        var throwaway = de.removeChild(d_ne);
-        var d_nea= document.getElementById("debut");
-        var throwaway = de.removeChild(d_nea);
+        $("#eventOk").remove();
     }
 });
 
@@ -481,7 +571,7 @@ function myfunction(){
     $('#modalamis').modal('show');
     //document.getElementById('#friend-list').innerHTML="";
     getServerData("ws/impl/userimpl/getfriendlist", result =>{
-        var tab = new Array();
+        var tab = [];
         $("#friend-list").append("<div class=\"col-md-12\">");
         for(var i = 0; i < Object.keys(result).length ; i++){
             tab[i] = result[i].name
@@ -491,7 +581,7 @@ function myfunction(){
         }
         $("#friend-list").append("</div>");
     })
-};
+}
 
 
 // modal de liste d'amis
@@ -499,8 +589,7 @@ function searchFriend(){
     document.getElementById("addFriend").innerHTML="";
     $('#modal-ajout-amis').modal('show');
     postServerData("ws/impl/userimpl/searchfriend",result =>{
-
-        var tab =new Array();
+        var tab = [];
         if(Object.keys(result).length >0){
             for(var i = 0; i < Object.keys(result).length ; i++){
                 tab[i] = result[i].name;
@@ -512,7 +601,7 @@ function searchFriend(){
         }
 
     });
-};
+}
 
 // ajout d'amis
 function addFriend(){

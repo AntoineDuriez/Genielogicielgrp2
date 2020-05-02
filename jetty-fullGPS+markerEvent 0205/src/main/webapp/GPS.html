@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <!-- Leaflet Routine Machine CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <!-- Leaflet Locate -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
     <!--My CSS-->
     <link rel="stylesheet" href="css/style.css">
     <title>GPS</title>
@@ -43,7 +46,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right"> <!-- Pour placer les items suivant à droite -->
             <li>
-                <a class="nav-link" id="itinerary" onclick="showMeRoute()"><i class="fas fa-route" style="font-size:30px;"></i></a>
+                <a class="nav-link my-itinerary-button" id="itinerary"><i class="fas fa-route" style="font-size:30px;"></i></a>
             </li>
             <li>
                 <a class="nav-link" id="myfriend"><i class="fa fa-user" style="font-size:30px;" onclick="myfunction()"></i></a> <!-- item user : La liste d'amis -->
@@ -70,17 +73,23 @@
             <form name="form-add-map">
                 <div class="modal-body">
                     <div>
-                        <label for="name">FROM</label>
-                        <input type="text" class="form-control" id="markerFrom" name="markerFrom">
+                        <label for="name" id="fromItinerary">FROM</label>
+                        <select class="form-control" id="markerFrom">
+                        </select>
                     </div>
                     <div>
-                        <label for="name">TO</label>
-                        <input type="text" class="form-control" id="markerTo" name="markerTo">
+                        <input type="checkbox" id="fromMyPosition" name="fromMyPosition" value="0">
+                        <label for="text">I want to go from my current position</label>
+                    </div>
+                    <div>
+                        <label for="name" id="toItinerary">TO</label>
+                        <select class="form-control" id="markerTo">
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="create">
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherMarkerRoute">Find a route !</button> <!-- Confirme le delete-->
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal" id="finisherRoute">Find a route !</button> <!-- Confirme le delete-->
                     </div>
                 </div>
             </form>
@@ -105,6 +114,8 @@
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     <!-- Leaflet Geocoder JS -->
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- Leaflet Locate -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="home.js"></script>
     <script type="text/javascript" src="GPS.js"></script>
 </body>
